@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="売上はあるのにお金が残らない会社向けに、直近1〜3案件の見積・材料費・外注費・作業時間を確認し、案件ごとの利益が見えるシステム導入を支援します。">
+    <title>案件別利益見える化システム｜デジラク</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #2563eb;
+            --accent: #dc2626;
+            --gold: #f59e0b;
+            --bg-white: #ffffff;
+            --bg-light: #f1f5f9;
+            --bg-soft: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+            --border-light: #e2e8f0;
+            --shadow-subtle: 0 1px 2px rgba(15,23,42,0.05);
+            --shadow-card: 0 4px 12px rgba(15,23,42,0.08);
+            --shadow-float: 0 20px 25px -5px rgba(15,23,42,0.12), 0 10px 10px -5px rgba(15,23,42,0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg-white);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        a { color: inherit; }
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 5vw; }
+        .section-padding { padding: 82px 0; }
+        .section-header { text-align: center; margin-bottom: 42px; }
+        .section-tag {
+            display: inline-block;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            color: var(--primary-light);
+            background: rgba(37,99,235,0.1);
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+        .section-heading { font-size: clamp(26px,3.5vw,38px); font-weight: 900; color: var(--primary); line-height: 1.35; }
+        .section-lead { max-width: 760px; margin: 14px auto 0; color: var(--text-muted); font-size: 15px; line-height: 1.9; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            padding: 14px 28px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 15px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s, border-color 0.2s;
+        }
+        .btn-primary { background: var(--primary-light); color: #fff; box-shadow: 0 8px 20px rgba(37,99,235,0.18); }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+        .btn-phone { background: #fff; color: var(--primary); border: 1px solid var(--border); }
+        .btn-phone:hover { border-color: var(--primary-light); transform: translateY(-1px); }
+        .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 8px 18px rgba(220,38,38,0.18); }
+        .btn-accent:hover { background: #b91c1c; transform: translateY(-1px); }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5vw;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-light);
+        }
+        .nav-logo { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 900; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .nav-logo i { color: var(--primary-light); font-size: 24px; }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { font-size: 13px; font-weight: 800; color: var(--text-muted); text-decoration: none; }
+        .nav-links a:hover { color: var(--primary-light); }
+        .nav-cta { font-size: 12px; font-weight: 800; color: #fff; background: var(--primary); padding: 8px 16px; border-radius: 4px; text-decoration: none; }
+
+        .hero {
+            padding: 124px 0 82px;
+            background-color: var(--bg-light);
+            background-image:
+                linear-gradient(rgba(37,99,235,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37,99,235,0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .hero-inner { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 42px; align-items: center; }
+        .hero-label { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--primary-light); border: 1px solid var(--border-light); border-radius: 4px; padding: 6px 12px; font-size: 13px; font-weight: 900; margin-bottom: 18px; box-shadow: var(--shadow-subtle); }
+        .hero-title { font-size: clamp(38px,5.6vw,66px); font-weight: 900; color: var(--primary); line-height: 1.18; margin-bottom: 24px; }
+        .hero-title span { color: var(--primary-light); }
+        .hero-sub { font-size: 16px; color: var(--text-main); line-height: 2; font-weight: 700; margin-bottom: 14px; }
+        .hero-note { font-size: 14px; color: var(--text-muted); line-height: 1.9; margin-bottom: 28px; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+        .hero-contact { display: flex; flex-wrap: wrap; gap: 14px; color: var(--text-muted); font-size: 13px; font-weight: 700; }
+        .hero-contact span { display: inline-flex; align-items: center; gap: 6px; }
+        .hero-contact i { color: var(--primary-light); font-size: 17px; }
+        .hero-visual {
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            box-shadow: var(--shadow-float);
+            overflow: hidden;
+        }
+        .visual-head { height: 42px; background: var(--primary); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; color: #cbd5e1; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 800; }
+        .visual-dots { display: flex; gap: 6px; }
+        .visual-dots span { display: block; width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
+        .visual-body { padding: 24px; }
+        .profit-card { border: 1px solid var(--border-light); border-radius: 8px; padding: 20px; background: linear-gradient(135deg, #fff, #f8fafc); }
+        .profit-row { display: flex; justify-content: space-between; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border-light); font-size: 13px; }
+        .profit-row:last-child { border-bottom: none; }
+        .profit-label { color: var(--text-muted); font-weight: 700; }
+        .profit-value { color: var(--primary); font-weight: 900; }
+        .profit-result { margin-top: 18px; padding: 16px; background: #eff6ff; border-left: 4px solid var(--primary-light); border-radius: 6px; }
+        .profit-result .small { font-size: 12px; color: var(--text-muted); font-weight: 700; }
+        .profit-result .large { font-family: 'Outfit', sans-serif; font-size: 34px; color: var(--primary-light); font-weight: 900; line-height: 1.1; }
+        .visual-caption { margin-top: 14px; color: var(--text-muted); font-size: 12px; line-height: 1.7; }
+
+        .problems { background: #fff; }
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+        .problem-item { display: flex; align-items: flex-start; gap: 13px; background: #fff; border: 1px solid var(--border-light); border-radius: 8px; padding: 20px; box-shadow: var(--shadow-card); }
+        .problem-item i { color: var(--accent); font-size: 22px; margin-top: 2px; }
+        .problem-item p { color: var(--primary); font-size: 14px; font-weight: 800; line-height: 1.65; }
+
+        .check { background: var(--bg-soft); border-top: 1px solid var(--border-light); }
+        .check-inner { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 32px; align-items: start; }
+        .check-copy { background: #fff; border: 1px solid var(--border-light); border-radius: 8px; padding: 28px; box-shadow: var(--shadow-subtle); }
+        .check-copy p { color: var(--text-muted); font-size: 14px; line-height: 1.9; margin-top: 14px; }
+        .check-note { margin-top: 18px; padding: 14px 16px; border-left: 4px solid var(--primary-light); background: #eff6ff; color: var(--primary); font-size: 13px; font-weight: 800; border-radius: 6px; }
+        .check-list { display: grid; gap: 14px; }
+        .check-step { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; background: #fff; border: 1px solid var(--border-light); border-radius: 8px; padding: 18px; }
+        .check-num { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-light); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 900; }
+        .check-step h3 { color: var(--primary); font-size: 15px; font-weight: 900; margin-bottom: 4px; }
+        .check-step p { color: var(--text-muted); font-size: 13px; line-height: 1.75; }
+
+        .system { background: var(--primary); color: #fff; }
+        .system .section-heading { color: #fff; }
+        .system .section-lead { color: #cbd5e1; }
+        .system .section-tag { color: #93c5fd; background: rgba(255,255,255,0.1); }
+        .function-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 36px; }
+        .function-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 6px; padding: 18px; display: flex; align-items: flex-start; gap: 10px; }
+        .function-item i { color: #93c5fd; font-size: 20px; margin-top: 2px; }
+        .function-item span { color: #f1f5f9; font-size: 13px; font-weight: 800; line-height: 1.7; }
+
+        .benefits { background: #fff; }
+        .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+        .benefit-item { background: var(--bg-soft); border: 1px solid var(--border-light); border-radius: 8px; padding: 20px; display: flex; gap: 13px; }
+        .benefit-item i { color: var(--primary-light); font-size: 22px; margin-top: 2px; }
+        .benefit-item p { color: var(--text-main); font-size: 14px; font-weight: 800; line-height: 1.7; }
+
+        .offer { background: var(--bg-light); border-top: 1px solid var(--border-light); }
+        .offer-box { background: #fff; border: 1px solid var(--border-light); border-radius: 10px; padding: 34px; box-shadow: var(--shadow-float); position: relative; overflow: hidden; }
+        .offer-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(220,38,38,0.1); color: var(--accent); border-radius: 4px; padding: 6px 12px; font-weight: 900; font-size: 13px; margin-bottom: 14px; }
+        .offer-box h2 { color: var(--primary); font-size: clamp(26px,3.6vw,40px); font-weight: 900; line-height: 1.35; margin-bottom: 16px; }
+        .offer-box p { color: var(--text-muted); font-size: 14px; line-height: 1.9; margin-bottom: 14px; }
+        .offer-notes { display: grid; gap: 6px; margin-top: 18px; color: #64748b; font-size: 12px; line-height: 1.7; }
+
+        .pricing { background: #fff; }
+        .price-panel { max-width: 880px; margin: 0 auto; background: #fff; border: 1px solid var(--border-light); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); }
+        .price-head { background: var(--primary); color: #fff; padding: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
+        .price-title { font-size: 18px; font-weight: 900; }
+        .price-main { display: flex; flex-wrap: wrap; gap: 18px; }
+        .price-block { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 6px; padding: 14px 18px; min-width: 190px; }
+        .price-label { color: #cbd5e1; font-size: 12px; font-weight: 800; }
+        .price-value { font-family: 'Outfit', 'Noto Sans JP', sans-serif; font-size: 30px; font-weight: 900; line-height: 1.1; }
+        .price-body { padding: 26px; }
+        .price-note { color: var(--text-muted); font-size: 13px; line-height: 1.8; margin-bottom: 24px; }
+        .price-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .price-list { background: var(--bg-soft); border: 1px solid var(--border-light); border-radius: 8px; padding: 18px; }
+        .price-list h3 { color: var(--primary); font-size: 15px; font-weight: 900; margin-bottom: 10px; }
+        .price-list ul { list-style: none; display: grid; gap: 8px; }
+        .price-list li { display: flex; gap: 8px; color: var(--text-muted); font-size: 13px; line-height: 1.65; }
+        .price-list li::before { content: '・'; color: var(--primary-light); font-weight: 900; }
+
+        .faq { background: var(--bg-soft); border-top: 1px solid var(--border-light); }
+        .faq-list { max-width: 900px; margin: 0 auto; display: grid; gap: 14px; }
+        .faq-item { background: #fff; border: 1px solid var(--border-light); border-radius: 8px; padding: 20px; box-shadow: var(--shadow-subtle); }
+        .faq-item h3 { color: var(--primary); font-size: 15px; font-weight: 900; margin-bottom: 8px; display: flex; gap: 8px; }
+        .faq-item h3::before { content: 'Q.'; color: var(--primary-light); font-family: 'Outfit', sans-serif; }
+        .faq-item p { color: var(--text-muted); font-size: 13.5px; line-height: 1.8; }
+
+        .contact { background: var(--primary); color: #fff; }
+        .contact .section-heading { color: #fff; }
+        .contact .section-lead { color: #cbd5e1; }
+        .contact .section-tag { color: #93c5fd; background: rgba(255,255,255,0.1); }
+        .contact-wrap { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 32px; align-items: start; }
+        .contact-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 26px; }
+        .contact-card h3 { font-size: 18px; font-weight: 900; margin-bottom: 12px; }
+        .contact-card p { color: #cbd5e1; font-size: 14px; line-height: 1.9; margin-bottom: 20px; }
+        .contact-info { display: grid; gap: 12px; }
+        .contact-row { display: flex; align-items: center; gap: 9px; color: #fff; font-size: 14px; font-weight: 800; }
+        .contact-row i { color: #93c5fd; font-size: 18px; }
+        .contact-form-box { background: #fff; border-radius: 8px; padding: 30px; box-shadow: var(--shadow-float); }
+        .form { display: grid; gap: 16px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { display: grid; gap: 5px; }
+        .form-label { color: var(--text-main); font-size: 12px; font-weight: 800; }
+        .form-input, .form-select, .form-textarea { width: 100%; background: #f8fafc; border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px; font-family: inherit; font-size: 14px; color: var(--text-main); }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--primary-light); background: #fff; box-shadow: 0 0 0 2px rgba(37,99,235,0.1); }
+        .form-textarea { min-height: 120px; resize: vertical; }
+        .submit { width: 100%; margin-top: 4px; }
+
+        footer { background: #020617; color: #94a3b8; padding: 30px 5vw; }
+        .footer-inner { max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+        .footer-brand { color: #fff; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 900; display: flex; gap: 7px; align-items: center; }
+        .footer-brand i { color: var(--primary-light); }
+        .footer-info { display: grid; gap: 4px; text-align: right; font-size: 12px; line-height: 1.7; }
+        .footer-copy { color: #475569; font-size: 11px; margin-top: 8px; }
+
+        @media(max-width: 900px) {
+            .hero-inner, .check-inner, .contact-wrap { grid-template-columns: 1fr; }
+            .hero-visual { max-width: 640px; }
+            .price-columns { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+        @media(max-width: 640px) {
+            nav { height: auto; min-height: 64px; padding: 12px 5vw; gap: 12px; }
+            .hero { padding-top: 112px; }
+            .hero-title { font-size: 36px; }
+            .hero-sub br, .hero-note br { display: none; }
+            .section-padding { padding: 64px 0; }
+            .hero-actions, .contact-actions { flex-direction: column; }
+            .btn { width: 100%; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-inner { flex-direction: column; }
+            .footer-info { text-align: left; }
+            .price-head { align-items: stretch; }
+            .price-main { width: 100%; }
+            .price-block { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="/" class="nav-logo"><i class="ph-fill ph-code-block"></i>デジラク</a>
+    <ul class="nav-links">
+        <li><a href="#check">無料確認</a></li>
+        <li><a href="#system">システム</a></li>
+        <li><a href="#offer">30日間無料</a></li>
+        <li><a href="#pricing">料金</a></li>
+        <li><a href="#contact">問い合わせ</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">無料確認を予約</a>
+</nav>
+
+<section class="hero">
+    <div class="container hero-inner">
+        <div>
+            <div class="hero-label"><i class="ph-bold ph-factory"></i>加工業・製造業・設備工事業向け</div>
+            <h1 class="hero-title">売上はあるのに、<br><span>なぜお金が残らないのか？</span></h1>
+            <p class="hero-sub">
+                直近1〜3案件の見積・材料費・外注費・作業時間を確認し、<br>
+                利益が残りにくい原因を無料でチェックします。
+            </p>
+            <p class="hero-note">
+                案件ごとの利益が見えない、見積と実績のズレが分からない、<br>
+                そんな状態を整理するところからお手伝いします。
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary"><i class="ph ph-calendar-check"></i>無料確認を予約する</a>
+                <a href="tel:05071147806" class="btn btn-phone"><i class="ph ph-phone-call"></i>電話で相談する</a>
+            </div>
+            <div class="hero-contact">
+                <span><i class="ph-fill ph-phone-call"></i>050-7114-7806</span>
+                <span><i class="ph-fill ph-envelope-simple"></i>info@dejiraku.com</span>
+            </div>
+        </div>
+        <div class="hero-visual" aria-label="案件別利益の見える化イメージ">
+            <div class="visual-head">
+                <span>PROJECT PROFIT CHECK</span>
+                <div class="visual-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="visual-body">
+                <div class="profit-card">
+                    <div class="profit-row"><span class="profit-label">売上</span><span class="profit-value">1,200,000円</span></div>
+                    <div class="profit-row"><span class="profit-label">材料費・外注費</span><span class="profit-value">760,000円</span></div>
+                    <div class="profit-row"><span class="profit-label">作業時間</span><span class="profit-value">86時間</span></div>
+                    <div class="profit-result">
+                        <div class="small">案件別の粗利・利益率を確認</div>
+                        <div class="large">18.4%</div>
+                    </div>
+                </div>
+                <div class="visual-caption">見積、材料費、外注費、作業時間を案件ごとに整理し、数字で確認しやすくします。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="problems section-padding">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">PROBLEMS</div>
+            <h2 class="section-heading">こんなお悩みありませんか？</h2>
+        </div>
+        <div class="problem-grid">
+            <div class="problem-item"><i class="ph-bold ph-warning-circle"></i><p>売上はあるのに、手元にお金が残らない</p></div>
+            <div class="problem-item"><i class="ph-bold ph-warning-circle"></i><p>見積どおり利益が出ているのか分からない</p></div>
+            <div class="problem-item"><i class="ph-bold ph-warning-circle"></i><p>材料費、外注費、作業時間を案件ごとに見えていない</p></div>
+            <div class="problem-item"><i class="ph-bold ph-warning-circle"></i><p>どの案件で儲かったか、あとから説明できない</p></div>
+            <div class="problem-item"><i class="ph-bold ph-warning-circle"></i><p>Excelや紙の管理で、利益状況をすぐ確認できない</p></div>
+            <div class="problem-item"><i class="ph-bold ph-warning-circle"></i><p>値上げや見積改善の判断材料がない</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="check section-padding" id="check">
+    <div class="container check-inner">
+        <div class="check-copy">
+            <div class="section-tag">FREE CHECK</div>
+            <h2 class="section-heading">直近1〜3案件を無料で確認します</h2>
+            <p>
+                まずは直近1〜3案件だけで大丈夫です。見積金額、材料費、外注費、作業時間を確認し、案件ごとの利益が見える状態になっているかを一緒に確認します。
+            </p>
+            <div class="check-note">いきなりシステムを売る話ではありません。まずは現在の管理状況を確認し、必要な場合のみ導入をご提案します。</div>
+        </div>
+        <div class="check-list">
+            <div class="check-step"><div class="check-num">1</div><div><h3>利益が残りにくい原因を整理</h3><p>案件ごとの売上と原価の見え方を確認します。</p></div></div>
+            <div class="check-step"><div class="check-num">2</div><div><h3>見積と実績のズレを確認</h3><p>見積時点と実際にかかった費用の差を見ます。</p></div></div>
+            <div class="check-step"><div class="check-num">3</div><div><h3>実際に残った利益を確認</h3><p>粗利、利益率、赤字になりやすい要素を整理します。</p></div></div>
+            <div class="check-step"><div class="check-num">4</div><div><h3>今後どう管理すればよいかを提案</h3><p>Excelで続けるか、システム化するかも含めて提案します。</p></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="system section-padding" id="system">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">SYSTEM</div>
+            <h2 class="section-heading">案件別利益見える化システムを導入します</h2>
+            <p class="section-lead">
+                売上・材料費・外注費・作業時間を入力することで、案件ごとの粗利・利益率・赤字案件を確認できるシステムを導入します。フルオーダー開発ではなく、利益管理に必要な基本機能を備えた半パッケージ型のため、小規模な会社でも導入しやすい形で始められます。
+            </p>
+        </div>
+        <div class="function-grid">
+            <div class="function-item"><i class="ph-bold ph-check-circle"></i><span>案件別の売上管理</span></div>
+            <div class="function-item"><i class="ph-bold ph-check-circle"></i><span>材料費、外注費、作業時間の入力</span></div>
+            <div class="function-item"><i class="ph-bold ph-check-circle"></i><span>粗利、利益率の自動計算</span></div>
+            <div class="function-item"><i class="ph-bold ph-check-circle"></i><span>赤字案件、低利益案件の確認</span></div>
+            <div class="function-item"><i class="ph-bold ph-check-circle"></i><span>直近案件の登録サポート</span></div>
+            <div class="function-item"><i class="ph-bold ph-check-circle"></i><span>操作説明</span></div>
+            <div class="function-item"><i class="ph-bold ph-check-circle"></i><span>軽微な調整</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="benefits section-padding">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">BENEFITS</div>
+            <h2 class="section-heading">導入すると分かること</h2>
+        </div>
+        <div class="benefit-grid">
+            <div class="benefit-item"><i class="ph-bold ph-chart-line-up"></i><p>案件ごとの粗利、利益率が見える</p></div>
+            <div class="benefit-item"><i class="ph-bold ph-eye"></i><p>赤字案件、低利益案件に気づける</p></div>
+            <div class="benefit-item"><i class="ph-bold ph-scales"></i><p>見積と実際原価のズレを確認できる</p></div>
+            <div class="benefit-item"><i class="ph-bold ph-currency-circle-dollar"></i><p>値上げや見積改善の判断材料になる</p></div>
+            <div class="benefit-item"><i class="ph-bold ph-calculator"></i><p>社長の感覚だけに頼らず、数字で確認できる</p></div>
+            <div class="benefit-item"><i class="ph-bold ph-bank"></i><p>金融機関への説明材料としても活用しやすくなる</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="offer section-padding" id="offer">
+    <div class="container">
+        <div class="offer-box">
+            <div class="offer-badge"><i class="ph-bold ph-gift"></i>初回導入企業様限定</div>
+            <h2>30日間無料でお試し導入</h2>
+            <p>ご希望の企業様には、直近案件をもとにシステムを設定し、30日間無料でお使いいただける導入体験をご案内できます。</p>
+            <p>実際に案件を入力し、粗利・利益率・赤字案件の確認画面を見ながら、自社に必要かどうかをご判断いただけます。</p>
+            <p>継続して利用される場合のみ、初期導入費と月額利用料が発生します。継続されない場合は、無料期間終了後に利用を停止します。</p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-accent"><i class="ph ph-calendar-check"></i>無料確認を予約する</a>
+                <a href="tel:05071147806" class="btn btn-phone"><i class="ph ph-phone-call"></i>電話で相談する</a>
+            </div>
+            <div class="offer-notes">
+                <span>※無料導入は標準機能の範囲内での対応です。</span>
+                <span>※大幅な個別開発、外部システム連携、複雑なカスタマイズは対象外です。</span>
+                <span>※対応数には限りがあります。</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pricing section-padding" id="pricing">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">PRICE</div>
+            <h2 class="section-heading">料金</h2>
+        </div>
+        <div class="price-panel">
+            <div class="price-head">
+                <div class="price-title">案件別利益見える化システム導入パック</div>
+                <div class="price-main">
+                    <div class="price-block"><div class="price-label">初期導入費</div><div class="price-value">298,000円</div></div>
+                    <div class="price-block"><div class="price-label">月額利用料</div><div class="price-value">10,000円</div></div>
+                </div>
+            </div>
+            <div class="price-body">
+                <p class="price-note">大幅な個別開発、外部システム連携、複雑なカスタマイズは別途お見積りとなります。</p>
+                <div class="price-columns">
+                    <div class="price-list">
+                        <h3>月額利用料に含まれるもの</h3>
+                        <ul>
+                            <li>システム利用環境の維持</li>
+                            <li>簡単な操作サポート</li>
+                            <li>軽微な不具合確認</li>
+                            <li>小さな表示調整</li>
+                        </ul>
+                    </div>
+                    <div class="price-list">
+                        <h3>別途費用となるもの</h3>
+                        <ul>
+                            <li>新機能追加</li>
+                            <li>大幅な画面変更</li>
+                            <li>帳票追加</li>
+                            <li>外部システム連携</li>
+                            <li>入力代行</li>
+                            <li>訪問サポート</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq section-padding">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">FAQ</div>
+            <h2 class="section-heading">よくある質問</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item"><h3>まだシステムを入れるか決めていなくても相談できますか？</h3><p>はい。まずは直近案件の無料確認だけでも大丈夫です。</p></div>
+            <div class="faq-item"><h3>資料がそろっていなくても大丈夫ですか？</h3><p>はい。まずは10分程度、資料なしで状況をお聞きできます。その後、必要に応じて見積書や材料費、外注費などを確認します。</p></div>
+            <div class="faq-item"><h3>Excel管理でも対応できますか？</h3><p>はい。現在のExcelや紙の管理を確認したうえで、必要な項目を整理します。</p></div>
+            <div class="faq-item"><h3>無料確認を受けたら必ず契約が必要ですか？</h3><p>いいえ。確認後、必要な場合のみ導入をご提案します。不要であればそこで終了で大丈夫です。</p></div>
+            <div class="faq-item"><h3>どんな業種に向いていますか？</h3><p>加工業、製造業、設備工事業、建設系工事業など、案件ごとに見積・材料費・外注費・作業時間が発生する会社に向いています。</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="contact section-padding" id="contact">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">CONTACT</div>
+            <h2 class="section-heading">無料確認を予約する</h2>
+            <p class="section-lead">まずは直近1〜3案件の無料確認からご相談いただけます。まだ資料がそろっていなくても大丈夫です。</p>
+        </div>
+        <div class="contact-wrap">
+            <div class="contact-card">
+                <h3>電話でのご相談も可能です</h3>
+                <p>「資料がまだない」「何を見ればいいか分からない」という段階でも、まずは状況をお聞きします。</p>
+                <div class="hero-actions">
+                    <a href="tel:05071147806" class="btn btn-phone"><i class="ph ph-phone-call"></i>電話で相談する</a>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-row"><i class="ph-fill ph-phone-call"></i>050-7114-7806</div>
+                    <div class="contact-row"><i class="ph-fill ph-envelope-simple"></i>info@dejiraku.com</div>
+                </div>
+            </div>
+            <div class="contact-form-box">
+                <form class="form" action="https://formspree.io/f/mvzdzokg" method="POST">
+                    <input type="hidden" name="source" value="案件別利益見える化LP">
+                    <div class="form-row">
+                        <div class="form-group"><label class="form-label">会社名</label><input class="form-input" type="text" name="company" autocomplete="organization"></div>
+                        <div class="form-group"><label class="form-label">お名前</label><input class="form-input" type="text" name="name" autocomplete="name" required></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label class="form-label">メールアドレス</label><input class="form-input" type="email" name="email" autocomplete="email" required></div>
+                        <div class="form-group"><label class="form-label">電話番号</label><input class="form-input" type="tel" name="phone" autocomplete="tel"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">希望する内容</label>
+                        <select class="form-select" name="希望する内容" required>
+                            <option value="">選択してください</option>
+                            <option value="無料確認を希望">無料確認を希望</option>
+                            <option value="30日間無料導入について聞きたい">30日間無料導入について聞きたい</option>
+                            <option value="システム導入について相談したい">システム導入について相談したい</option>
+                            <option value="その他">その他</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">相談内容</label>
+                        <textarea class="form-textarea" name="message" placeholder="直近案件の状況や、見積・材料費・外注費・作業時間の管理で困っていることをご記入ください。" required></textarea>
+                    </div>
+                    <button class="btn btn-accent submit" type="submit"><i class="ph ph-paper-plane-right"></i>無料確認を予約する</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand"><i class="ph-fill ph-code-block"></i>デジラク</div>
+            <div class="footer-copy">&copy; 2026 デジラク All Rights Reserved.</div>
+        </div>
+        <div class="footer-info">
+            <div>代表　本庄将悟</div>
+            <div>所在地　〒450-0002 愛知県名古屋市中村区名駅4丁目24番5号 第2森ビル401</div>
+            <div>電話　050-7114-7806</div>
+            <div>メール　info@dejiraku.com</div>
+            <div>URL　https://www.dejiraku.com/</div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
