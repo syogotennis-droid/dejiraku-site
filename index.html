@@ -187,31 +187,56 @@
         }
         .panel-dots { display: flex; gap: 6px; }
         .panel-dots span { width: 8px; height: 8px; border-radius: 50%; display: block; background: #64748b; }
-        .panel-body { padding: 24px; display: grid; gap: 16px; }
-        .flow-card {
-            display: grid;
-            grid-template-columns: 44px 1fr;
-            gap: 14px;
-            align-items: start;
-            padding: 16px;
-            border: 1px solid var(--border-light);
-            border-radius: 6px;
-            background: #fff;
+        .panel-body {
+            padding: 28px 26px 30px;
+            background:
+                linear-gradient(135deg, rgba(37,99,235,0.04), transparent 45%),
+                #fff;
         }
-        .flow-card:nth-child(2) { background: #eff6ff; border-color: #bfdbfe; }
-        .flow-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 8px;
-            background: var(--primary-light);
-            color: #fff;
+        .flow-steps {
+            position: relative;
+            display: grid;
+            gap: 22px;
+        }
+        .flow-steps::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            bottom: 24px;
+            left: 22px;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(37,99,235,0.22), rgba(15,23,42,0.08));
+        }
+        .flow-step {
+            position: relative;
+            display: grid;
+            grid-template-columns: 46px 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+        .flow-mark {
+            position: relative;
+            z-index: 2;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid rgba(37,99,235,0.2);
+            color: var(--primary-light);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            box-shadow: 0 2px 8px rgba(15,23,42,0.05);
+        }
+        .flow-content {
+            min-height: 46px;
+            padding: 2px 0 0;
         }
         .flow-title { font-size: 14px; font-weight: 900; color: var(--primary); margin-bottom: 4px; }
-        .flow-text { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+        .flow-text { font-size: 12px; color: var(--text-muted); line-height: 1.75; max-width: 360px; }
 
         .position-band { background: #fff; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 0 5vw; }
         .position-band-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
@@ -403,25 +428,27 @@
                 <div class="panel-dots"><span></span><span></span><span></span></div>
             </div>
             <div class="panel-body">
-                <div class="flow-card">
-                    <div class="flow-icon"><i class="ph-bold ph-files"></i></div>
-                    <div>
+                <div class="flow-steps" aria-label="デジラクの業務改善ステップ">
+                    <div class="flow-step">
+                        <div class="flow-mark">1</div>
+                        <div class="flow-content">
                         <div class="flow-title">バラバラの業務を整理</div>
                         <div class="flow-text">紙、Excel、メール、口頭連絡で分散している情報と流れを見える化します。</div>
+                        </div>
                     </div>
-                </div>
-                <div class="flow-card">
-                    <div class="flow-icon"><i class="ph-bold ph-robot"></i></div>
-                    <div>
+                    <div class="flow-step">
+                        <div class="flow-mark">2</div>
+                        <div class="flow-content">
                         <div class="flow-title">AIでできることを増やす</div>
                         <div class="flow-text">文章作成、議事録、資料作成、マニュアル作成など、日常業務で使える形に落とし込みます。</div>
+                        </div>
                     </div>
-                </div>
-                <div class="flow-card">
-                    <div class="flow-icon"><i class="ph-bold ph-monitor"></i></div>
-                    <div>
+                    <div class="flow-step">
+                        <div class="flow-mark">3</div>
+                        <div class="flow-content">
                         <div class="flow-title">必要な仕組みを作る</div>
                         <div class="flow-text">受注、勤怠、案件、利益、日報など、会社ごとの業務に合わせて小さく導入します。</div>
+                        </div>
                     </div>
                 </div>
             </div>
