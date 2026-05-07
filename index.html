@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>デジラク | 中小製造業・建築業向け 業務システム開発</title>
+    <meta name="description" content="デジラクは、中小企業向けにAI活用研修、業務改善コンサル、業務システム開発を提供します。紙、Excel、メール、口頭連絡でバラバラになった業務を整理し、現場に合った仕組みづくりを支援します。">
+    <title>デジラク | 中小企業の業務をAIとシステムでラクにする</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
@@ -15,6 +16,7 @@
             --accent: #f59e0b;
             --bg-white: #ffffff;
             --bg-light: #f1f5f9;
+            --bg-soft: #f8fafc;
             --bg-muted: #e2e8f0;
             --text-main: #1e293b;
             --text-muted: #475569;
@@ -23,8 +25,8 @@
             --shadow-subtle: 0 1px 2px rgba(15,23,42,0.05);
             --shadow-card: 0 4px 12px rgba(15,23,42,0.08);
             --shadow-float: 0 20px 25px -5px rgba(15,23,42,0.1), 0 10px 10px -5px rgba(15,23,42,0.04);
-            --shadow-glow: 0 8px 24px rgba(37,99,235,0.15);
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
@@ -33,10 +35,10 @@
             font-family: 'Noto Sans JP', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            line-height: 1.6;
+            line-height: 1.7;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
-        .section-padding { padding: 80px 0; }
+        .section-padding { padding: 84px 0; }
         .reveal { opacity: 0; transform: translateY(15px); transition: all 0.5s cubic-bezier(0.2,0.8,0.2,1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; }
@@ -45,654 +47,661 @@
         .delay-4 { transition-delay: 0.25s; }
         .section-header { text-align: center; margin-bottom: 48px; }
         .section-tag {
-            display: inline-block; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 800;
-            letter-spacing: 0.12em; color: var(--primary-light); background-color: rgba(37,99,235,0.1);
-            padding: 4px 12px; border-radius: 4px; text-transform: uppercase; margin-bottom: 12px;
+            display: inline-block;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            color: var(--primary-light);
+            background-color: rgba(37,99,235,0.1);
+            padding: 4px 12px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
         }
-        .section-heading { font-size: clamp(26px,3.5vw,36px); font-weight: 900; color: var(--primary); line-height: 1.3; }
+        .section-heading { font-size: clamp(26px,3.5vw,38px); font-weight: 900; color: var(--primary); line-height: 1.35; }
+        .section-lead { max-width: 760px; margin: 14px auto 0; color: var(--text-muted); font-size: 15px; line-height: 1.9; }
         .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 14px 32px; border-radius: 4px; font-weight: 700; font-size: 15px;
-            letter-spacing: 0.05em; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
         }
         .btn-accent { background-color: var(--primary-light); color: #fff; box-shadow: var(--shadow-subtle); }
         .btn-accent:hover { background-color: #1d4ed8; transform: translateY(-1px); }
         .btn-outline { background-color: #fff; color: var(--primary); border: 1px solid var(--border); }
         .btn-outline:hover { background-color: var(--bg-light); border-color: var(--primary-light); transform: translateY(-1px); }
-        /* NAV */
+
         nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            height: 64px; display: flex; align-items: center; justify-content: space-between;
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-light); padding: 0 5vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 0 5vw;
         }
-        .nav-logo { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 22px; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .nav-logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 22px;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
         .nav-logo i { color: var(--primary-light); font-size: 24px; }
         .nav-links { display: flex; gap: 24px; list-style: none; }
         .nav-links a { font-size: 13px; font-weight: 700; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
         .nav-links a:hover { color: var(--primary-light); }
-        .nav-cta { font-size: 12px; font-weight: 700; color: #fff; background-color: var(--primary); padding: 8px 16px; border-radius: 4px; text-decoration: none; transition: all 0.2s; }
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            background-color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
         .nav-cta:hover { background-color: var(--primary-light); }
-        /* HERO */
+
         .hero {
-            position: relative; overflow: hidden;
-            padding: 120px 0 80px; background-color: var(--bg-light);
-            background-image: linear-gradient(rgba(37,99,235,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.03) 1px, transparent 1px);
+            position: relative;
+            overflow: hidden;
+            padding: 124px 0 84px;
+            background-color: var(--bg-light);
+            background-image:
+                linear-gradient(rgba(37,99,235,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37,99,235,0.04) 1px, transparent 1px);
             background-size: 24px 24px;
         }
-        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-        @media(max-width: 800px){ .hero-inner { grid-template-columns: 1fr; text-align: center; } }
+        .hero-inner { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 44px; align-items: center; }
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-light);
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-subtle);
+        }
         .hero-title { font-size: clamp(36px,5.5vw,64px); font-weight: 900; color: var(--primary); line-height: 1.2; margin-bottom: 24px; }
         .hero-title span { color: var(--primary-light); }
-        .hero-sub { font-size: 14px; color: var(--text-muted); line-height: 1.9; margin-bottom: 28px; font-weight: 500; }
+        .hero-sub { font-size: 15px; color: var(--text-muted); line-height: 2; margin-bottom: 28px; font-weight: 500; }
         .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-        @media(max-width: 800px){ .hero-tags { justify-content: center; } }
         .h-tag {
-            display: inline-flex; align-items: center; gap: 5px;
-            background: #fff; border: 1px solid var(--border-light); border-radius: 4px;
-            padding: 5px 12px; font-size: 12px; font-weight: 700; color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
             box-shadow: var(--shadow-subtle);
         }
         .h-tag i { color: var(--primary-light); font-size: 14px; }
         .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-        @media(max-width: 800px){ .hero-btns { justify-content: center; } }
-        /* Mockup */
-        .hero-mockup-wrapper { position: relative; width: 100%; height: 350px; perspective: 1000px; }
-        @media(max-width: 800px){ .hero-mockup-wrapper { display: none; } }
-        .hero-mockup {
-            position: absolute; top: 0; right: 0; width: 110%; height: 100%;
-            background: #fff; border-radius: 8px; border: 1px solid var(--border);
-            box-shadow: var(--shadow-float); transform: rotateY(-15deg) rotateX(5deg);
-            display: flex; flex-direction: column; overflow: hidden;
+        .hero-panel {
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            box-shadow: var(--shadow-float);
+            overflow: hidden;
         }
-        .mockup-header { height: 24px; background: var(--bg-light); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; padding: 0 12px; gap: 6px; }
-        .mockup-header span { display: block; width: 8px; height: 8px; border-radius: 50%; }
-        .mockup-header span:nth-child(1) { background: #ef4444; }
-        .mockup-header span:nth-child(2) { background: #eab308; }
-        .mockup-header span:nth-child(3) { background: #22c55e; }
-        .mockup-body { flex: 1; padding: 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 16px; background: #fafafa; }
-        .m-card { background: #fff; border: 1px solid var(--border-light); border-radius: 4px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
-        .m-bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 100%; padding-top: 20px; }
-        .m-bar { flex: 1; background: var(--bg-muted); border-radius: 2px 2px 0 0; }
-        .m-bar.active { background: var(--primary-light); }
-        .m-list { display: flex; flex-direction: column; gap: 12px; }
-        .m-row { display: flex; align-items: center; gap: 8px; }
-        .m-avatar { width: 24px; height: 24px; border-radius: 4px; background: var(--bg-muted); }
-        .m-line { height: 8px; border-radius: 4px; background: var(--bg-muted); }
-        .w-full { width: 100%; } .w-70 { width: 70%; } .w-50 { width: 50%; }
-        .mockup-float {
-            position: absolute; background: #fff; padding: 8px 16px; border-radius: 4px;
-            box-shadow: var(--shadow-card); display: flex; align-items: center; gap: 8px;
-            font-size: 12px; font-weight: 700; color: var(--primary); border: 1px solid var(--border-light);
+        .panel-head {
+            height: 40px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            color: #cbd5e1;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
         }
-        .mockup-float i { font-size: 16px; }
-        .badge-1 { bottom: 40px; left: -20px; animation: float1 4s ease-in-out infinite; }
-        .badge-1 i { color: #22c55e; }
-        .badge-2 { top: 60px; right: 20px; animation: float2 5s ease-in-out infinite; }
-        .badge-2 i { color: var(--primary-light); }
-        @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-        @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
-        /* POSITION BAND */
+        .panel-dots { display: flex; gap: 6px; }
+        .panel-dots span { width: 8px; height: 8px; border-radius: 50%; display: block; background: #64748b; }
+        .panel-body { padding: 24px; display: grid; gap: 16px; }
+        .flow-card {
+            display: grid;
+            grid-template-columns: 44px 1fr;
+            gap: 14px;
+            align-items: start;
+            padding: 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            background: #fff;
+        }
+        .flow-card:nth-child(2) { background: #eff6ff; border-color: #bfdbfe; }
+        .flow-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--primary-light);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .flow-title { font-size: 14px; font-weight: 900; color: var(--primary); margin-bottom: 4px; }
+        .flow-text { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+
         .position-band { background: #fff; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 0 5vw; }
         .position-band-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-        @media(max-width: 700px){ .position-band-inner { grid-template-columns: repeat(2, 1fr); } }
         .pos-item { display: flex; align-items: flex-start; gap: 12px; padding: 24px 20px; border-right: 1px solid var(--border-light); }
         .pos-item:last-child { border-right: none; }
-        @media(max-width: 700px){ .pos-item:nth-child(2) { border-right: none; } .pos-item:nth-child(3) { border-right: 1px solid var(--border-light); } }
         .pos-icon { width: 36px; height: 36px; min-width: 36px; background: #eff6ff; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--primary-light); }
-        .pos-text { display: flex; flex-direction: column; gap: 3px; }
-        .pos-title { font-size: 13px; font-weight: 700; color: var(--primary); }
-        .pos-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
-        /* PROBLEMS */
+        .pos-title { font-size: 13px; font-weight: 800; color: var(--primary); }
+        .pos-desc { font-size: 11px; color: var(--text-muted); line-height: 1.6; margin-top: 3px; }
+
         .problems { background-color: #fff; }
-        .problems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-        .problem-card { background: #fff; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: var(--shadow-card); transition: all 0.25s; position: relative; overflow: hidden; }
-        .problem-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); border-color: #bfdbfe; }
-        .problem-card > .watermark { position: absolute; right: -5%; bottom: -10%; font-size: 140px; color: var(--primary); opacity: 0.02; z-index: 1; pointer-events: none; }
-        .problem-header { background: var(--bg-light); padding: 24px 20px; border-bottom: 1px solid var(--border-light); display: flex; align-items: flex-start; gap: 16px; position: relative; z-index: 2; transition: all 0.25s; }
-        .problem-card:hover .problem-header { background: #eff6ff; }
-        .problem-icon-box { width: 48px; height: 48px; min-width: 48px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--primary-light); box-shadow: var(--shadow-subtle); border: 1px solid var(--border-light); transition: all 0.25s; }
-        .problem-card:hover .problem-icon-box { background: var(--primary-light); color: #fff; border-color: var(--primary-light); }
-        .problem-title { font-size: 16px; font-weight: 800; color: var(--primary); line-height: 1.4; margin-top: 4px; }
-        .problem-body { padding: 24px 20px; position: relative; z-index: 2; }
-        .problem-text { font-size: 14px; color: var(--text-muted); line-height: 1.6; font-weight: 500; }
-        /* SERVICES */
+        .problems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .problem-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-card);
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+        .problem-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15,23,42,0.08); border-color: #bfdbfe; }
+        .problem-card > .watermark { position: absolute; right: -4%; bottom: -12%; font-size: 120px; color: var(--primary); opacity: 0.025; z-index: 1; pointer-events: none; }
+        .problem-header { background: var(--bg-light); padding: 22px 20px; border-bottom: 1px solid var(--border-light); display: flex; align-items: flex-start; gap: 14px; position: relative; z-index: 2; }
+        .problem-icon-box { width: 46px; height: 46px; min-width: 46px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 23px; color: var(--primary-light); box-shadow: var(--shadow-subtle); border: 1px solid var(--border-light); }
+        .problem-title { font-size: 16px; font-weight: 800; color: var(--primary); line-height: 1.45; margin-top: 2px; }
+        .problem-body { padding: 20px; position: relative; z-index: 2; }
+        .problem-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; font-weight: 500; }
+
         .services { background-color: var(--primary); color: #fff; }
         .services .section-heading { color: #fff; }
+        .services .section-lead { color: #cbd5e1; }
         .services .section-tag { background: rgba(255,255,255,0.1); color: #93c5fd; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 28px 24px; transition: all 0.25s; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 30px 24px; transition: all 0.25s; }
         .service-card:hover { background: rgba(255,255,255,0.1); border-color: rgba(147,197,253,0.4); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
         .service-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
         .service-num { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #fff; background: var(--primary-light); width: 34px; height: 34px; min-width: 34px; display: flex; align-items: center; justify-content: center; border-radius: 6px; box-shadow: 0 2px 8px rgba(37,99,235,0.4); }
-        .service-name { font-size: 17px; font-weight: 700; color: #fff; line-height: 1.4; margin-top: 2px; }
-        .service-desc { font-size: 13.5px; color: #cbd5e1; line-height: 1.7; }
-        /* CASES */
-        .cases { background-color: #f8fafc; }
-        .cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .case-card { background: #fff; border-radius: 4px; padding: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-subtle); transition: all 0.2s; border-left: 4px solid var(--primary); }
-        .case-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); border-left-color: var(--primary-light); }
-        .case-industry { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--primary); background-color: var(--bg-light); padding: 4px 8px; border-radius: 4px; margin-bottom: 16px; border: 1px solid var(--border-light); }
-        .case-industry i { color: var(--text-muted); font-size: 14px; }
-        .case-body { display: flex; flex-direction: column; gap: 12px; }
-        .case-block { display: flex; flex-direction: column; gap: 4px; }
-        .case-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.05em; display: flex; align-items: center; gap: 4px; }
-        .case-label::before { content:''; display:inline-block; width:4px; height:4px; background:var(--border); border-radius:50%; }
-        .case-text { font-size: 13px; color: var(--text-main); font-weight: 500; }
-        .case-result { background: var(--bg-light); padding: 12px; border-radius: 4px; font-size: 13px; font-weight: 700; color: var(--primary-light); margin-top: 16px; display: flex; align-items: flex-start; gap: 8px; border: 1px solid var(--border-light); }
-        .case-result i { font-size: 18px; margin-top: -1px; }
-        /* FEATURES */
-        .features { background-color: #f8fafc; border-top: 1px solid var(--border-light); }
+        .service-name { font-size: 18px; font-weight: 800; color: #fff; line-height: 1.4; }
+        .service-desc { font-size: 13.5px; color: #cbd5e1; line-height: 1.85; margin-bottom: 18px; }
+        .service-list { list-style: none; display: grid; gap: 8px; }
+        .service-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: #e2e8f0; }
+        .service-list i { color: #93c5fd; margin-top: 3px; }
+
+        .operations { background-color: var(--bg-soft); }
+        .ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+        .ops-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 16px 18px;
+            box-shadow: var(--shadow-subtle);
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .ops-item i { color: var(--primary-light); font-size: 20px; }
+
+        .features { background-color: #fff; border-top: 1px solid var(--border-light); }
         .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        @media(max-width: 700px){ .features-grid { grid-template-columns: 1fr; } }
-        .feature-item { display: flex; gap: 20px; align-items: flex-start; padding: 28px; background: #fff; border-radius: 6px; border: 1px solid var(--border-light); box-shadow: 0 1px 4px rgba(15,23,42,0.06); transition: box-shadow 0.2s, transform 0.2s; }
+        .feature-item { display: flex; gap: 20px; align-items: flex-start; padding: 28px; background: var(--bg-soft); border-radius: 6px; border: 1px solid var(--border-light); box-shadow: 0 1px 4px rgba(15,23,42,0.06); transition: box-shadow 0.2s, transform 0.2s; }
         .feature-item:hover { box-shadow: 0 6px 20px rgba(15,23,42,0.09); transform: translateY(-2px); }
         .feature-icon { width: 44px; height: 44px; min-width: 44px; background: #eff6ff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary-light); }
         .feature-text { display: flex; flex-direction: column; gap: 8px; }
-        .feature-text .title { font-size: 15px; font-weight: 700; color: var(--primary); line-height: 1.4; }
-        .feature-text .desc { font-size: 13px; color: var(--text-muted); line-height: 1.75; }
-        /* PRICING */
-        .pricing-compare { background-color: #f8fafc; border-top: 1px solid var(--border-light); }
-        .pricing-lead { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; max-width: 680px; }
-        .pricing-table-wrapper { width: 100%; overflow-x: auto; padding-bottom: 16px; }
-        .pricing-table { width: 100%; min-width: 600px; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(15,23,42,0.06); border: 1px solid var(--border-light); }
-        .pricing-table thead tr { background: var(--primary); }
-        .pricing-table thead th { padding: 16px 24px; text-align: left; font-size: 13px; font-weight: 700; letter-spacing: 0.05em; color: rgba(255,255,255,0.7); }
-        .pricing-table thead th:nth-child(2) { text-align: center; }
-        .pricing-table thead th:nth-child(3) { text-align: center; background: var(--primary-light); color: #fff; }
-        .pricing-table tbody tr { transition: background 0.15s; }
-        .pricing-table tbody tr:hover { background: #f8fafc; }
-        .pricing-table td { padding: 24px; vertical-align: middle; border-bottom: 1px solid var(--border-light); }
-        .pricing-table tbody tr:last-child td { border-bottom: none; }
-        .pricing-table td:nth-child(2) { text-align: center; background-color: #f8fafc; border-left: 1px solid var(--border-light); }
-        .pricing-table td:nth-child(3) { text-align: center; background-color: rgba(37,99,235,0.03); border-left: 1px solid rgba(37,99,235,0.15); }
-        .pt-name { display: flex; align-items: center; gap: 14px; }
-        .pt-icon { width: 44px; height: 44px; min-width: 44px; background: #eff6ff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--primary-light); border: 1px solid rgba(37,99,235,0.1); }
-        .pt-text { display: flex; flex-direction: column; gap: 4px; }
-        .pt-title { font-size: 15px; font-weight: 800; color: var(--primary); }
-        .pt-sub { font-size: 12px; color: var(--text-muted); }
-        .td-market { font-size: 15px; font-weight: 700; color: #94a3b8; white-space: nowrap; }
-        .td-price { white-space: nowrap; }
-        .td-price-num { font-size: 26px; font-weight: 900; color: var(--primary-light); line-height: 1; }
-        .td-price-num small { font-size: 13px; font-weight: 700; color: var(--primary); margin-left: 2px; }
-        .pricing-reason { margin-top: 48px; background: var(--primary); border-radius: 12px; padding: 40px 24px; box-shadow: 0 20px 40px rgba(15,23,42,0.15); text-align: center; position: relative; overflow: hidden; }
-        .pricing-reason::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at center, rgba(37,99,235,0.15) 0%, transparent 60%); pointer-events: none; }
-        .pr-title { font-size: 18px; font-weight: 900; color: #fff; margin-bottom: 32px; position: relative; z-index: 2; }
-        .pr-title span { color: #93c5fd; }
-        .pr-grid { display: flex; align-items: stretch; justify-content: center; gap: 16px; flex-wrap: wrap; position: relative; z-index: 2; }
-        .pr-item { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 32px 20px; width: 240px; transition: transform 0.3s, background 0.3s; }
-        .pr-item:hover { transform: translateY(-4px); background: rgba(255,255,255,0.06); border-color: rgba(147,197,253,0.3); }
-        .pr-icon { width: 56px; height: 56px; min-width: 56px; background: linear-gradient(135deg, var(--primary-light), #1d4ed8); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #fff; box-shadow: 0 8px 16px rgba(37,99,235,0.3); transform: rotate(-5deg); transition: transform 0.3s; }
-        .pr-item:hover .pr-icon { transform: rotate(0deg) scale(1.05); }
-        .pr-text { font-size: 14px; font-weight: 700; color: #f1f5f9; line-height: 1.6; }
-        .pr-plus { font-size: 20px; color: #3b82f6; font-weight: 900; display: flex; align-items: center; }
-        @media(max-width: 800px) { .pr-grid { flex-direction: column; gap: 12px; } .pr-item { width: 100%; max-width: 340px; padding: 20px; flex-direction: row; text-align: left; } .pr-icon { width: 48px; height: 48px; min-width: 48px; font-size: 24px; transform: rotate(0deg); } .pr-plus { transform: rotate(90deg); margin: 0; } }
-        .compare-note { font-size: 12px; margin-top: 16px; color: var(--text-muted); text-align: right; }
-        /* CONTACT */
+        .feature-text .title { font-size: 15px; font-weight: 800; color: var(--primary); line-height: 1.45; }
+        .feature-text .desc { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
+
+        .pricing { background-color: var(--bg-soft); border-top: 1px solid var(--border-light); }
+        .pricing-lead { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin: 0 auto 36px; max-width: 760px; text-align: center; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+        .price-card {
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 22px;
+            box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+        }
+        .price-name { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 900; color: var(--primary); margin-bottom: 12px; }
+        .price-name i { color: var(--primary-light); font-size: 20px; }
+        .price-value { font-family: 'Outfit', 'Noto Sans JP', sans-serif; color: var(--primary-light); font-size: 30px; font-weight: 900; line-height: 1; }
+        .price-value small { color: var(--primary); font-size: 13px; margin-left: 3px; }
+        .price-desc { margin-top: 12px; color: var(--text-muted); font-size: 12.5px; line-height: 1.7; }
+        .pricing-note { margin-top: 24px; padding: 18px 20px; background: #fff; border: 1px solid var(--border-light); border-left: 4px solid var(--primary-light); border-radius: 6px; color: var(--text-muted); font-size: 13px; line-height: 1.8; }
+
         .contact { background-color: var(--primary); border-top: 1px solid var(--border); color: #fff; }
         .contact .section-heading { color: #fff; }
         .contact .section-tag { background: rgba(255,255,255,0.1); color: #93c5fd; }
-        .contact-target { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
-        .contact-target-tag { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 6px 14px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.7); }
-        .contact-target-tag i { color: #93c5fd; font-size: 14px; }
         .contact-sub-area { text-align: center; margin-bottom: 40px; }
-        .contact-sub-area p { font-size: 14px; color: #94a3b8; line-height: 1.8; margin-top: 12px; }
+        .contact-sub-area p { font-size: 14px; color: #cbd5e1; line-height: 1.9; margin-top: 12px; }
+        .contact-target { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 28px 0 32px; }
+        .contact-target-tag { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 6px 14px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.78); }
+        .contact-target-tag i { color: #93c5fd; font-size: 14px; }
         .contact-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
         .contact-row { display: flex; align-items: center; gap: 8px; }
         .contact-row i { font-size: 18px; color: #93c5fd; }
         .contact-key { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; color: #94a3b8; }
         .contact-val { font-size: 14px; font-weight: 700; color: #fff; }
-        .contact-inner { max-width: 600px; margin: 0 auto; background-color: #fff; padding: 40px; border-radius: 8px; box-shadow: var(--shadow-float); }
+        .contact-inner { max-width: 640px; margin: 0 auto; background-color: #fff; padding: 40px; border-radius: 8px; box-shadow: var(--shadow-float); }
         .contact-form { display: flex; flex-direction: column; gap: 16px; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        @media(max-width: 500px){ .form-row { grid-template-columns: 1fr; } }
         .form-group { display: flex; flex-direction: column; gap: 4px; }
         .form-label { font-size: 12px; font-weight: 700; color: var(--text-main); }
         .form-input, .form-textarea { background-color: #f8fafc; border: 1px solid var(--border); padding: 10px 12px; font-size: 14px; font-family: inherit; border-radius: 4px; transition: all 0.2s; }
         .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--primary-light); background: #fff; box-shadow: 0 0 0 2px rgba(37,99,235,0.1); }
-        .form-textarea { resize: vertical; min-height: 100px; }
+        .form-textarea { resize: vertical; min-height: 120px; }
         .form-submit { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; font-size: 15px; background-color: var(--primary-light); color: #fff; font-weight: 700; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
         .form-submit:hover { background-color: #1d4ed8; }
-        /* FOOTER */
+
         footer { background-color: #020617; padding: 24px 5vw; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
         .footer-logo { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px; text-decoration: none; }
         .footer-logo i { color: var(--primary-light); font-size: 18px; }
         .footer-copy { font-size: 11px; color: #475569; }
+
+        @media(max-width: 900px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero-panel { max-width: 640px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .position-band-inner { grid-template-columns: repeat(2, 1fr); }
+            .pos-item:nth-child(2) { border-right: none; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+        @media(max-width: 680px) {
+            nav { height: auto; min-height: 64px; gap: 12px; padding: 12px 5vw; }
+            .nav-links { display: none; }
+            .hero { padding-top: 112px; }
+            .hero-title { font-size: 36px; }
+            .hero-sub br { display: none; }
+            .position-band-inner { grid-template-columns: 1fr; }
+            .pos-item { border-right: none; border-bottom: 1px solid var(--border-light); }
+            .pos-item:last-child { border-bottom: none; }
+            .form-row { grid-template-columns: 1fr; }
+            .contact-inner { padding: 28px 20px; }
+            footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+        }
     </style>
 </head>
 <body>
-<!-- NAV -->
 <nav>
     <a href="#" class="nav-logo"><i class="ph-fill ph-code-block"></i>デジラク</a>
     <ul class="nav-links">
-        <li><a href="#services">開発実績</a></li>
-        <li><a href="#cases">事例</a></li>
-        <li><a href="#pricing">費用目安</a></li>
-        <li><a href="#contact">相談する</a></li>
+        <li><a href="#services">サービス</a></li>
+        <li><a href="#operations">できること</a></li>
+        <li><a href="#pricing">料金</a></li>
+        <li><a href="#contact">問い合わせ</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">見積り相談</a>
+    <a href="#contact" class="nav-cta">無料相談する</a>
 </nav>
-<!-- HERO -->
+
 <section class="hero">
     <div class="container hero-inner">
         <div class="hero-text reveal">
-            <h1 class="hero-title">現場の無駄を、<br><span>消す。</span></h1>
-            <p class="hero-sub">紙・Excel・転記作業を、業務に合ったシステムで整えます。<br>既製品SaaSでは合わない。でもフルスクラッチは高すぎる。<br>そのちょうど間を、現実的なコストで開発しています。</p>
+            <div class="hero-kicker"><i class="ph-bold ph-sparkle"></i>中小企業向け AI研修・業務改善・システム開発</div>
+            <h1 class="hero-title">中小企業の業務を、<br><span>AIとシステムでラクにする。</span></h1>
+            <p class="hero-sub">
+                紙・Excel・メール・口頭連絡でバラバラになっている業務を整理し、<br>
+                AI活用研修・業務改善コンサル・システム開発で、<br>
+                現場に合った仕組みづくりを支援します。
+            </p>
             <div class="hero-tags">
-                <span class="h-tag"><i class="ph-bold ph-clock"></i>勤怠・作業記録を効率化</span>
-                <span class="h-tag"><i class="ph-bold ph-receipt"></i>帳票・見積・請求を自動化</span>
-                <span class="h-tag"><i class="ph-bold ph-package"></i>受発注・在庫管理を整理</span>
-                <span class="h-tag"><i class="ph-bold ph-copy"></i>転記・二重入力を削減</span>
+                <span class="h-tag"><i class="ph-bold ph-robot"></i>AI活用研修</span>
+                <span class="h-tag"><i class="ph-bold ph-flow-arrow"></i>業務フロー整理</span>
+                <span class="h-tag"><i class="ph-bold ph-file-xls"></i>Excel管理の見直し</span>
+                <span class="h-tag"><i class="ph-bold ph-code"></i>業務システム開発</span>
             </div>
             <div class="hero-btns">
-                <a href="#contact" class="btn btn-accent"><i class="ph ph-chat-circle-text"></i>まず相談してみる</a>
-                <a href="#cases" class="btn btn-outline">開発事例を見る</a>
+                <a href="#contact" class="btn btn-accent"><i class="ph ph-chat-circle-text"></i>無料相談する</a>
+                <a href="#services" class="btn btn-outline">サービスを見る</a>
             </div>
         </div>
-        <div class="hero-mockup-wrapper reveal delay-1">
-            <div class="hero-mockup">
-                <div class="mockup-header"><span></span><span></span><span></span></div>
-                <div class="mockup-body">
-                    <div class="m-card">
-                        <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:4px;">受注件数</div>
-                        <div style="font-size:24px;font-weight:900;color:#0f172a;">1,284<span style="font-size:10px;color:#22c55e;margin-left:4px;">+12%</span></div>
-                        <div class="m-bar-chart">
-                            <div class="m-bar" style="height:40%"></div>
-                            <div class="m-bar" style="height:60%"></div>
-                            <div class="m-bar active" style="height:100%"></div>
-                            <div class="m-bar" style="height:80%"></div>
-                            <div class="m-bar" style="height:50%"></div>
-                        </div>
+        <div class="hero-panel reveal delay-1">
+            <div class="panel-head">
+                <span>DEJIRAKU WORKFLOW</span>
+                <div class="panel-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="panel-body">
+                <div class="flow-card">
+                    <div class="flow-icon"><i class="ph-bold ph-files"></i></div>
+                    <div>
+                        <div class="flow-title">バラバラの業務を整理</div>
+                        <div class="flow-text">紙、Excel、メール、口頭連絡で分散している情報と流れを見える化します。</div>
                     </div>
-                    <div class="m-card m-list">
-                        <div style="font-size:10px;font-weight:700;color:#94a3b8;">最新の作業記録</div>
-                        <div class="m-row"><div class="m-avatar"></div><div class="m-line w-full"></div></div>
-                        <div class="m-row"><div class="m-avatar"></div><div class="m-line w-70"></div></div>
-                        <div class="m-row"><div class="m-avatar"></div><div class="m-line w-50"></div></div>
-                        <div class="m-row"><div class="m-avatar"></div><div class="m-line w-full"></div></div>
+                </div>
+                <div class="flow-card">
+                    <div class="flow-icon"><i class="ph-bold ph-robot"></i></div>
+                    <div>
+                        <div class="flow-title">AIでできることを増やす</div>
+                        <div class="flow-text">文章作成、議事録、資料作成、マニュアル作成など、日常業務で使える形に落とし込みます。</div>
+                    </div>
+                </div>
+                <div class="flow-card">
+                    <div class="flow-icon"><i class="ph-bold ph-monitor"></i></div>
+                    <div>
+                        <div class="flow-title">必要な仕組みを作る</div>
+                        <div class="flow-text">受注、勤怠、案件、利益、日報など、会社ごとの業務に合わせて小さく導入します。</div>
                     </div>
                 </div>
             </div>
-            <div class="mockup-float badge-1"><i class="ph-fill ph-check-circle"></i>クラウド同期完了</div>
-            <div class="mockup-float badge-2"><i class="ph-fill ph-trend-up"></i>作業効率アップ</div>
         </div>
     </div>
 </section>
-<!-- POSITION BAND -->
+
 <div class="position-band">
     <div class="position-band-inner">
         <div class="pos-item">
+            <div class="pos-icon"><i class="ph ph-buildings"></i></div>
+            <div>
+                <div class="pos-title">中小企業・小規模事業者向け</div>
+                <div class="pos-desc">製造業、加工業、建設業、設備工事業、サービス業などに対応します。</div>
+            </div>
+        </div>
+        <div class="pos-item">
+            <div class="pos-icon"><i class="ph ph-map-trifold"></i></div>
+            <div>
+                <div class="pos-title">まず業務を見える化</div>
+                <div class="pos-desc">いきなり作らず、転記、確認、属人化、Excel管理の限界を整理します。</div>
+            </div>
+        </div>
+        <div class="pos-item">
+            <div class="pos-icon"><i class="ph ph-robot"></i></div>
+            <div>
+                <div class="pos-title">AIを現場で使える形に</div>
+                <div class="pos-desc">ChatGPTなどの生成AIを、毎日の業務に使えるところまで支援します。</div>
+            </div>
+        </div>
+        <div class="pos-item">
             <div class="pos-icon"><i class="ph ph-wrench"></i></div>
-            <div class="pos-text">
-                <div class="pos-title">会社の業務に合わせて開発</div>
-                <div class="pos-desc">既製品では対応できない独自の業務フローにも、オーダーメイドで対応します</div>
-            </div>
-        </div>
-        <div class="pos-item">
-            <div class="pos-icon"><i class="ph ph-lightning"></i></div>
-            <div class="pos-text">
-                <div class="pos-title">AI活用と既存資産で無駄なく開発</div>
-                <div class="pos-desc">高速開発と資産の再利用により、フルスクラッチより現実的なコストで提供</div>
-            </div>
-        </div>
-        <div class="pos-item">
-            <div class="pos-icon"><i class="ph ph-hand-tap"></i></div>
-            <div class="pos-text">
-                <div class="pos-title">現場で使いやすい設計</div>
-                <div class="pos-desc">ITに不慣れな方でも迷わず使えるよう、必要な機能に絞ったシンプルな画面設計</div>
-            </div>
-        </div>
-        <div class="pos-item">
-            <div class="pos-icon"><i class="ph ph-file-xls"></i></div>
-            <div class="pos-text">
-                <div class="pos-title">紙・Excel・転記作業の改善が得意</div>
-                <div class="pos-desc">勤怠、帳票、受発注、作業記録など、現場に残るアナログ業務の改善を多数対応</div>
+            <div>
+                <div class="pos-title">小さく始めるシステム導入</div>
+                <div class="pos-desc">フルオーダーだけでなく、簡易システムや半パッケージ型にも対応します。</div>
             </div>
         </div>
     </div>
 </div>
-<!-- PROBLEMS -->
+
 <section class="problems section-padding">
     <div class="container">
         <div class="section-header reveal">
-            <div class="section-tag">こんな課題ありませんか？</div>
-            <h2 class="section-heading">現場に残るアナログ業務の悩み</h2>
+            <div class="section-tag">PROBLEMS</div>
+            <h2 class="section-heading">こんなお悩みありませんか？</h2>
         </div>
         <div class="problems-grid">
             <div class="problem-card reveal delay-1">
-                <i class="ph-fill ph-clock watermark"></i>
-                <div class="problem-header">
-                    <div class="problem-icon-box"><i class="ph-bold ph-clock"></i></div>
-                    <h3 class="problem-title">勤怠・作業記録の<br>集計に手間がかかる</h3>
-                </div>
-                <div class="problem-body">
-                    <div class="problem-text">紙の出勤簿をExcelに手入力。月末の集計に何日もかかり、ミスも多い。</div>
-                </div>
-            </div>
-            <div class="problem-card reveal delay-2">
                 <i class="ph-fill ph-file-xls watermark"></i>
                 <div class="problem-header">
                     <div class="problem-icon-box"><i class="ph-bold ph-file-xls"></i></div>
-                    <h3 class="problem-title">特定の担当者しか<br>触れないExcel管理</h3>
+                    <h3 class="problem-title">紙やExcelでの管理に<br>限界を感じている</h3>
                 </div>
-                <div class="problem-body">
-                    <div class="problem-text">複雑なExcelを1人が管理しており、不在時に業務がストップしてしまう。</div>
-                </div>
+                <div class="problem-body"><div class="problem-text">担当者ごとのファイルや紙の台帳が増え、最新情報がどこにあるのか分かりにくくなっている。</div></div>
             </div>
-            <div class="problem-card reveal delay-3">
+            <div class="problem-card reveal delay-2">
                 <i class="ph-fill ph-copy watermark"></i>
                 <div class="problem-header">
                     <div class="problem-icon-box"><i class="ph-bold ph-copy"></i></div>
-                    <h3 class="problem-title">同じ内容を<br>何度も入力している</h3>
+                    <h3 class="problem-title">同じ内容を何度も<br>転記している</h3>
                 </div>
-                <div class="problem-body">
-                    <div class="problem-text">システムが分断されており、同じデータを別の場所に何度も手入力している。</div>
-                </div>
-            </div>
-            <div class="problem-card reveal delay-1">
-                <i class="ph-fill ph-receipt watermark"></i>
-                <div class="problem-header">
-                    <div class="problem-icon-box"><i class="ph-bold ph-receipt"></i></div>
-                    <h3 class="problem-title">帳票・請求書の<br>作成に時間がかかる</h3>
-                </div>
-                <div class="problem-body">
-                    <div class="problem-text">フォーマットがバラバラで、作成・送付のたびに時間と手間がかかっている。</div>
-                </div>
-            </div>
-            <div class="problem-card reveal delay-2">
-                <i class="ph-fill ph-clipboard-text watermark"></i>
-                <div class="problem-header">
-                    <div class="problem-icon-box"><i class="ph-bold ph-clipboard-text"></i></div>
-                    <h3 class="problem-title">作業記録・日報が<br>きちんと残らない</h3>
-                </div>
-                <div class="problem-body">
-                    <div class="problem-text">報告がLINEや口頭で行われ、正式な記録が残らずトラブル時に困る。</div>
-                </div>
+                <div class="problem-body"><div class="problem-text">受注、見積、請求、日報などに同じ情報を入力しており、ミスや確認作業が増えている。</div></div>
             </div>
             <div class="problem-card reveal delay-3">
-                <i class="ph-fill ph-package watermark"></i>
+                <i class="ph-fill ph-folder-notch watermark"></i>
                 <div class="problem-header">
-                    <div class="problem-icon-box"><i class="ph-bold ph-package"></i></div>
-                    <h3 class="problem-title">FAX・電話の受注対応が<br>業務を圧迫している</h3>
+                    <div class="problem-icon-box"><i class="ph-bold ph-folder-notch"></i></div>
+                    <h3 class="problem-title">受注、見積、請求、勤怠が<br>バラバラに管理されている</h3>
                 </div>
-                <div class="problem-body">
-                    <div class="problem-text">注文がFAX・電話・メールでバラバラに届き、入力・管理の手間が大きい。</div>
+                <div class="problem-body"><div class="problem-text">業務ごとに管理方法が違い、案件の進捗や利益、対応状況をまとめて確認しづらい。</div></div>
+            </div>
+            <div class="problem-card reveal delay-1">
+                <i class="ph-fill ph-user-focus watermark"></i>
+                <div class="problem-header">
+                    <div class="problem-icon-box"><i class="ph-bold ph-user-focus"></i></div>
+                    <h3 class="problem-title">社長や一部の人しか<br>流れを把握していない</h3>
                 </div>
+                <div class="problem-body"><div class="problem-text">判断や確認が特定の人に集中し、担当者が休むと業務が止まりやすくなっている。</div></div>
+            </div>
+            <div class="problem-card reveal delay-2">
+                <i class="ph-fill ph-robot watermark"></i>
+                <div class="problem-header">
+                    <div class="problem-icon-box"><i class="ph-bold ph-robot"></i></div>
+                    <h3 class="problem-title">AIを使いたいが、<br>何から始めればいいか分からない</h3>
+                </div>
+                <div class="problem-body"><div class="problem-text">ChatGPTなどの生成AIに興味はあるが、自社の仕事にどう使えばいいかイメージできない。</div></div>
+            </div>
+            <div class="problem-card reveal delay-3">
+                <i class="ph-fill ph-coins watermark"></i>
+                <div class="problem-header">
+                    <div class="problem-icon-box"><i class="ph-bold ph-coins"></i></div>
+                    <h3 class="problem-title">システムを入れたいが、<br>高額な開発は不安</h3>
+                </div>
+                <div class="problem-body"><div class="problem-text">大きな投資は避けたい。まずは必要な範囲だけ、小さく試せる形から始めたい。</div></div>
             </div>
         </div>
     </div>
 </section>
-<!-- SERVICES -->
+
 <section class="services section-padding" id="services">
     <div class="container">
         <div class="section-header reveal">
-            <div class="section-tag">得意領域</div>
-            <h2 class="section-heading">こんな業務改善に対応しています</h2>
+            <div class="section-tag">SERVICES</div>
+            <h2 class="section-heading">デジラクができること</h2>
+            <p class="section-lead">AI活用研修、業務改善コンサル、業務システム開発の3本柱で、現場に合った改善を進めます。</p>
         </div>
         <div class="services-grid">
             <div class="service-card reveal delay-1">
-                <div class="service-header"><div class="service-num">01</div><div class="service-name">勤怠・作業記録システム</div></div>
-                <div class="service-desc">QRコードをかざすだけで勤怠と作業内容を同時記録。ITに不慣れな現場でも迷わず使えるシンプルな設計にこだわっています。</div>
+                <div class="service-header"><div class="service-num">01</div><div class="service-name">AI活用研修</div></div>
+                <div class="service-desc">ChatGPTなどの生成AIを、文章作成、メール返信、議事録、資料作成、マニュアル作成、業務改善に活用できるように研修します。</div>
+                <ul class="service-list">
+                    <li><i class="ph-bold ph-check"></i>日常業務で使うプロンプトの作り方</li>
+                    <li><i class="ph-bold ph-check"></i>社内資料、手順書、メール文面の作成</li>
+                    <li><i class="ph-bold ph-check"></i>AIで効率化しやすい業務の洗い出し</li>
+                </ul>
             </div>
             <div class="service-card reveal delay-2">
-                <div class="service-header"><div class="service-num">02</div><div class="service-name">受注・案件管理</div></div>
-                <div class="service-desc">受注情報を一元管理し、対応状況・納期・担当者をリアルタイムで共有。対応漏れや引き継ぎミスを防ぎます。</div>
+                <div class="service-header"><div class="service-num">02</div><div class="service-name">業務改善コンサル</div></div>
+                <div class="service-desc">現在の業務フローを確認し、転記作業、確認作業、属人化、Excel管理の限界などを整理します。いきなりシステムを作るのではなく、まず業務の流れを見える化します。</div>
+                <ul class="service-list">
+                    <li><i class="ph-bold ph-check"></i>紙、Excel、メール、口頭連絡の整理</li>
+                    <li><i class="ph-bold ph-check"></i>ムダな転記や確認作業の見直し</li>
+                    <li><i class="ph-bold ph-check"></i>改善の優先順位と進め方の提案</li>
+                </ul>
             </div>
             <div class="service-card reveal delay-3">
-                <div class="service-header"><div class="service-num">03</div><div class="service-name">帳票・見積・請求の自動化</div></div>
-                <div class="service-desc">入力した内容から見積書・発注書・請求書を自動生成。転記ミスをゼロにして、書類業務の時間を大幅に削減します。</div>
-            </div>
-            <div class="service-card reveal delay-1">
-                <div class="service-header"><div class="service-num">04</div><div class="service-name">Web受発注システム</div></div>
-                <div class="service-desc">取引先がWebから直接発注できる専用画面を構築。FAX・電話・メールの受付業務をまとめて一本化します。</div>
-            </div>
-            <div class="service-card reveal delay-2">
-                <div class="service-header"><div class="service-num">05</div><div class="service-name">在庫・顧客管理</div></div>
-                <div class="service-desc">在庫の増減・顧客情報・取引履歴を一括管理。現場の実態に合ったシンプルな構造で、すぐに使い始められます。</div>
-            </div>
-            <div class="service-card reveal delay-3">
-                <div class="service-header"><div class="service-num">06</div><div class="service-name">業務フローに合わせた個別開発</div></div>
-                <div class="service-desc">独自の承認フローや複合業務など、既製品では対応できない要件にも対応。まずは現状の業務をそのままお聞かせください。</div>
+                <div class="service-header"><div class="service-num">03</div><div class="service-name">業務システム開発</div></div>
+                <div class="service-desc">受注管理、勤怠管理、見積・請求書作成、案件管理、利益管理、日報・作業報告など、会社ごとの業務に合わせたシステムを構築します。</div>
+                <ul class="service-list">
+                    <li><i class="ph-bold ph-check"></i>小規模な簡易システムから対応</li>
+                    <li><i class="ph-bold ph-check"></i>半パッケージ型、フルオーダーに対応</li>
+                    <li><i class="ph-bold ph-check"></i>現場で使いやすい画面と運用を重視</li>
+                </ul>
             </div>
         </div>
     </div>
 </section>
-<!-- CASES -->
-<section class="cases section-padding" id="cases">
+
+<section class="operations section-padding" id="operations">
     <div class="container">
         <div class="section-header reveal">
-            <div class="section-tag">開発事例</div>
-            <h2 class="section-heading">実際に解決した業務の例</h2>
+            <div class="section-tag">WORKS</div>
+            <h2 class="section-heading">このような業務に対応できます</h2>
         </div>
-        <div class="cases-grid">
-            <div class="case-card reveal delay-1">
-                <div class="case-industry"><i class="ph-fill ph-buildings"></i>施設管理業</div>
-                <div class="case-body">
-                    <div class="case-block">
-                        <div class="case-label">課題</div>
-                        <div class="case-text">紙の出勤簿・作業記録を手入力でExcelに転記。月次集計に毎月多くの時間がかかっていた。</div>
-                    </div>
-                    <div class="case-block">
-                        <div class="case-label">開発内容</div>
-                        <div class="case-text">QRコードをかざすだけで勤怠と作業内容を同時記録するシステムを開発。CSV出力で既存業務との連携も対応。</div>
-                    </div>
-                </div>
-                <div class="case-result"><i class="ph-fill ph-lightning"></i>転記作業ゼロ・月次集計時間を大幅削減</div>
-            </div>
-            <div class="case-card reveal delay-2">
-                <div class="case-industry"><i class="ph-fill ph-hard-hat"></i>建設関連業</div>
-                <div class="case-body">
-                    <div class="case-block">
-                        <div class="case-label">課題</div>
-                        <div class="case-text">見積書・発注書・請求書をExcelで個別作成しており、転記ミスや二重入力が頻発していた。</div>
-                    </div>
-                    <div class="case-block">
-                        <div class="case-label">開発内容</div>
-                        <div class="case-text">受注情報を一度入力するだけで、必要な帳票を自動生成するシステムを開発。</div>
-                    </div>
-                </div>
-                <div class="case-result"><i class="ph-fill ph-lightning"></i>書類作成時間を約70%削減・転記ミスゼロ</div>
-            </div>
-            <div class="case-card reveal delay-3">
-                <div class="case-industry"><i class="ph-fill ph-factory"></i>製造・販売業</div>
-                <div class="case-body">
-                    <div class="case-block">
-                        <div class="case-label">課題</div>
-                        <div class="case-text">顧客からの発注がFAX・電話・メールでバラバラに届き、受注管理が煩雑だった。</div>
-                    </div>
-                    <div class="case-block">
-                        <div class="case-label">開発内容</div>
-                        <div class="case-text">取引先ごとに単価が切り替わるWeb発注システムを開発。発注窓口を一本化し、受注情報を自動で管理画面に反映。</div>
-                    </div>
-                </div>
-                <div class="case-result"><i class="ph-fill ph-lightning"></i>FAX・電話対応の工数削減・受注漏れゼロ</div>
-            </div>
+        <div class="ops-grid">
+            <div class="ops-item reveal delay-1"><i class="ph-bold ph-shopping-cart"></i>受注管理</div>
+            <div class="ops-item reveal delay-2"><i class="ph-bold ph-receipt"></i>見積、請求書作成</div>
+            <div class="ops-item reveal delay-3"><i class="ph-bold ph-clock"></i>勤怠管理</div>
+            <div class="ops-item reveal delay-4"><i class="ph-bold ph-briefcase"></i>案件管理</div>
+            <div class="ops-item reveal delay-1"><i class="ph-bold ph-chart-line-up"></i>利益管理、案件別利益管理</div>
+            <div class="ops-item reveal delay-2"><i class="ph-bold ph-clipboard-text"></i>日報、作業報告</div>
+            <div class="ops-item reveal delay-3"><i class="ph-bold ph-users-three"></i>顧客管理</div>
+            <div class="ops-item reveal delay-4"><i class="ph-bold ph-flow-arrow"></i>業務フロー整理</div>
         </div>
     </div>
 </section>
-<!-- FEATURES -->
+
 <section class="features section-padding">
     <div class="container">
         <div class="section-header reveal">
-            <div class="section-tag">選ばれる理由</div>
-            <h2 class="section-heading">なぜ、デジラクが選ばれるのか</h2>
+            <div class="section-tag">FEATURES</div>
+            <h2 class="section-heading">デジラクの特徴</h2>
         </div>
         <div class="features-grid">
             <div class="feature-item reveal delay-1">
-                <div class="feature-icon"><i class="ph ph-handshake"></i></div>
+                <div class="feature-icon"><i class="ph ph-map-trifold"></i></div>
                 <div class="feature-text">
-                    <div class="title">現場に入って、一緒に整える</div>
-                    <div class="desc">「どう使うか」まで考えてシステムを作ります。現状の業務をそのままお聞きし、現場が迷わず使える状態になるまでサポートします。</div>
+                    <div class="title">現場の業務を整理してから提案</div>
+                    <div class="desc">今の流れを聞き取り、何を変えるべきか、何を残すべきかを整理してから進めます。</div>
                 </div>
             </div>
             <div class="feature-item reveal delay-2">
-                <div class="feature-icon"><i class="ph ph-lightning"></i></div>
+                <div class="feature-icon"><i class="ph ph-seedling"></i></div>
                 <div class="feature-text">
-                    <div class="title">AI活用と既存資産で、速く・安く開発</div>
-                    <div class="desc">AIを活用した高速開発と、蓄積した開発資産の再利用により、フルスクラッチ開発の1/3〜1/5のコストで提供しています。魔法ではなく、無駄な工程を省いた結果です。</div>
+                    <div class="title">小さく始められるシステム導入</div>
+                    <div class="desc">大きな開発だけでなく、まず必要な範囲に絞った簡易システムや半パッケージ型にも対応します。</div>
                 </div>
             </div>
             <div class="feature-item reveal delay-3">
-                <div class="feature-icon"><i class="ph ph-puzzle-piece"></i></div>
+                <div class="feature-icon"><i class="ph ph-robot"></i></div>
                 <div class="feature-text">
-                    <div class="title">既存業務を壊さない導入設計</div>
-                    <div class="desc">CSV出力など既存の業務フローに合わせた連携設計で、導入後の混乱を最小限に。業務全体を変えるのではなく、課題になっている部分から整えます。</div>
+                    <div class="title">AI研修からシステム開発まで対応</div>
+                    <div class="desc">AIで改善できること、人の運用で変えること、システム化することを分けて提案します。</div>
                 </div>
             </div>
             <div class="feature-item reveal delay-4">
+                <div class="feature-icon"><i class="ph ph-chats-circle"></i></div>
+                <div class="feature-text">
+                    <div class="title">専門用語を使いすぎず、分かりやすく説明</div>
+                    <div class="desc">ITに詳しくない方にも伝わる言葉で、目的、費用、進め方を説明します。</div>
+                </div>
+            </div>
+            <div class="feature-item reveal delay-1">
                 <div class="feature-icon"><i class="ph ph-coins"></i></div>
                 <div class="feature-text">
-                    <div class="title">補助金活用で実質負担を抑える</div>
-                    <div class="desc">IT導入補助金など各種補助金を活用することで、実質負担を大幅に抑えた導入が可能です。申請書類のサポートも対応しています。</div>
+                    <div class="title">中小企業向けに現実的な価格と範囲で提案</div>
+                    <div class="desc">必要以上に大きく作らず、効果が見えやすいところからムダを減らします。</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- PRICING -->
-<section class="pricing-compare section-padding" id="pricing">
+
+<section class="pricing section-padding" id="pricing">
     <div class="container">
         <div class="section-header reveal">
-            <div class="section-tag">費用目安</div>
-            <h2 class="section-heading">開発例と費用目安</h2>
+            <div class="section-tag">PRICE</div>
+            <h2 class="section-heading">料金目安</h2>
         </div>
-        <p class="pricing-lead reveal">業務内容や必要機能に応じてお見積りしますが、よくあるシステム開発の費用目安をご紹介します。</p>
-        <div class="pricing-table-wrapper reveal delay-1">
-            <table class="pricing-table">
-                <thead>
-                    <tr>
-                        <th style="width:40%">システム種別</th>
-                        <th style="width:30%">一般的な開発例</th>
-                        <th style="width:30%">デジラクの費用目安</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="pt-name">
-                                <div class="pt-icon"><i class="ph ph-device-mobile"></i></div>
-                                <div class="pt-text">
-                                    <div class="pt-title">勤怠・作業記録システム</div>
-                                    <div class="pt-sub">QR打刻・作業記録・CSV出力に対応</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="td-market">150万円</td>
-                        <td class="td-price"><span class="td-price-num">50<small>万円〜</small></span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="pt-name">
-                                <div class="pt-icon"><i class="ph ph-receipt"></i></div>
-                                <div class="pt-text">
-                                    <div class="pt-title">見積・請求書自動化ツール</div>
-                                    <div class="pt-sub">入力内容から必要な帳票を自動生成</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="td-market">150万円</td>
-                        <td class="td-price"><span class="td-price-num">50<small>万円〜</small></span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="pt-name">
-                                <div class="pt-icon"><i class="ph ph-shopping-cart"></i></div>
-                                <div class="pt-text">
-                                    <div class="pt-title">Web受発注システム</div>
-                                    <div class="pt-sub">取引先がそのまま発注できる専用画面を構築</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="td-market">300万円</td>
-                        <td class="td-price"><span class="td-price-num">80<small>万円〜</small></span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="pt-name">
-                                <div class="pt-icon"><i class="ph ph-archive"></i></div>
-                                <div class="pt-text">
-                                    <div class="pt-title">在庫管理システム</div>
-                                    <div class="pt-sub">入力・在庫反映・確認をまとめて効率化</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="td-market">250万円</td>
-                        <td class="td-price"><span class="td-price-num">80<small>万円〜</small></span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="pricing-reason reveal delay-2">
-            <h3 class="pr-title">なぜ、<span>オーダーメイド開発</span>がこの価格で可能なのか？</h3>
-            <div class="pr-grid">
-                <div class="pr-item">
-                    <div class="pr-icon"><i class="ph-bold ph-robot"></i></div>
-                    <div class="pr-text">AI活用による<br>圧倒的な開発スピード</div>
-                </div>
-                <div class="pr-plus"><i class="ph-bold ph-plus"></i></div>
-                <div class="pr-item">
-                    <div class="pr-icon"><i class="ph-bold ph-stack"></i></div>
-                    <div class="pr-text">自社開発資産・<br>既存パーツの再利用</div>
-                </div>
-                <div class="pr-plus"><i class="ph-bold ph-plus"></i></div>
-                <div class="pr-item" style="position:relative;">
-                    <div style="position:absolute;top:-12px;right:-12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;box-shadow:0 4px 12px rgba(245,158,11,0.4);border:2px solid var(--primary);transform:rotate(4deg);letter-spacing:0.05em;z-index:10;">最大の強み！</div>
-                    <div class="pr-icon" style="background:linear-gradient(135deg,#fbbf24,#d97706);box-shadow:0 8px 16px rgba(245,158,11,0.25);"><i class="ph-bold ph-wrench"></i></div>
-                    <div class="pr-text">必要な機能だけに絞り込む<br>『無駄ゼロ』のオーダーメイド</div>
-                </div>
+        <p class="pricing-lead reveal">内容や規模により変動します。まずは現在の業務内容を確認したうえで、必要な範囲をご提案します。</p>
+        <div class="pricing-grid">
+            <div class="price-card reveal delay-1">
+                <div class="price-name"><i class="ph-bold ph-robot"></i>AI活用研修</div>
+                <div class="price-value">198,000<small>円〜</small></div>
+                <div class="price-desc">生成AIの基本から、文章作成、メール返信、議事録、資料作成などの実務活用まで。</div>
+            </div>
+            <div class="price-card reveal delay-2">
+                <div class="price-name"><i class="ph-bold ph-flow-arrow"></i>業務改善コンサル</div>
+                <div class="price-value">198,000<small>円〜</small></div>
+                <div class="price-desc">業務フロー、転記作業、確認作業、Excel管理、属人化の整理と改善提案。</div>
+            </div>
+            <div class="price-card reveal delay-3">
+                <div class="price-name"><i class="ph-bold ph-monitor"></i>小規模システム導入</div>
+                <div class="price-value">298,000<small>円〜</small></div>
+                <div class="price-desc">まずは必要な範囲に絞った簡易システム、半パッケージ型の導入。</div>
+            </div>
+            <div class="price-card reveal delay-4">
+                <div class="price-name"><i class="ph-bold ph-code"></i>業務システム開発</div>
+                <div class="price-value">500,000<small>円〜</small></div>
+                <div class="price-desc">受注、勤怠、見積、請求、案件、利益、日報などに合わせた個別開発。</div>
+            </div>
+            <div class="price-card reveal delay-1">
+                <div class="price-name"><i class="ph-bold ph-headset"></i>月額サポート</div>
+                <div class="price-value">10,000<small>円〜</small></div>
+                <div class="price-desc">導入後の相談、軽微な修正、運用改善、AI活用の継続サポート。</div>
             </div>
         </div>
-        <p class="compare-note reveal">※ 費用は業務内容・必要機能の詳細ヒアリングの上でお見積りします。IT導入補助金を活用した実質負担の削減サポートも行っています。</p>
+        <p class="pricing-note reveal delay-2">表示金額は目安です。業務範囲、対象人数、必要機能、訪問有無などにより変動します。まだ具体的に決まっていない段階でも、現在の状況を一緒に整理できます。</p>
     </div>
 </section>
-<!-- CONTACT -->
+
 <section class="contact section-padding" id="contact">
     <div class="container">
         <div class="contact-sub-area reveal">
-            <div class="section-tag">ご相談・見積り</div>
-            <h2 class="section-heading" style="color:#fff;margin-top:12px;">業務の困りごとを、<br>そのままお聞かせください</h2>
-            <p style="margin-top:12px;">「どこから手をつければいいか分からない」という段階でも大丈夫です。<br>業務内容をお聞きした上で、現場に合った進め方をご提案します。</p>
+            <div class="section-tag">CONTACT</div>
+            <h2 class="section-heading" style="color:#fff;margin-top:12px;">まずは無料相談から</h2>
+            <p>
+                現在の業務のお悩みや、AI・システムで改善できそうな部分を一緒に整理します。<br>
+                まだ具体的に決まっていなくても大丈夫です。
+            </p>
             <div class="contact-target">
-                <span class="contact-target-tag"><i class="ph-bold ph-factory"></i>製造業・建築業の方</span>
-                <span class="contact-target-tag"><i class="ph-bold ph-file-xls"></i>紙・Excel運用を改善したい方</span>
-                <span class="contact-target-tag"><i class="ph-bold ph-copy"></i>転記・二重入力をなくしたい方</span>
-                <span class="contact-target-tag"><i class="ph-bold ph-receipt"></i>帳票・受発注を効率化したい方</span>
+                <span class="contact-target-tag"><i class="ph-bold ph-buildings"></i>中小企業・小規模事業者の方</span>
+                <span class="contact-target-tag"><i class="ph-bold ph-file-xls"></i>紙・Excel管理を見直したい方</span>
+                <span class="contact-target-tag"><i class="ph-bold ph-robot"></i>AI活用を始めたい方</span>
+                <span class="contact-target-tag"><i class="ph-bold ph-wrench"></i>業務に合う仕組みを作りたい方</span>
             </div>
             <div class="contact-info">
+                <div class="contact-row"><i class="ph-fill ph-phone-call"></i><span class="contact-key">TEL</span><span class="contact-val">050-7114-7806</span></div>
                 <div class="contact-row"><i class="ph-fill ph-envelope-simple"></i><span class="contact-key">MAIL</span><span class="contact-val">info@dejiraku.com</span></div>
-                <div class="contact-row"><i class="ph-fill ph-phone-call"></i><span class="contact-key">TEL</span><span class="contact-val">090-7685-4123</span></div>
             </div>
         </div>
         <div class="contact-inner reveal delay-1">
             <form class="contact-form" action="https://formspree.io/f/mvzdzokg" method="POST">
                 <div class="form-row">
-                    <div class="form-group"><label class="form-label">お名前（必須）</label><input class="form-input" type="text" name="name" required></div>
-                    <div class="form-group"><label class="form-label">会社名（任意）</label><input class="form-input" type="text" name="company"></div>
+                    <div class="form-group"><label class="form-label">お名前（必須）</label><input class="form-input" type="text" name="name" autocomplete="name" required></div>
+                    <div class="form-group"><label class="form-label">会社名（任意）</label><input class="form-input" type="text" name="company" autocomplete="organization"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label class="form-label">メールアドレス（必須）</label><input class="form-input" type="email" name="email" required></div>
-                    <div class="form-group"><label class="form-label">電話番号（任意）</label><input class="form-input" type="tel" name="phone"></div>
+                    <div class="form-group"><label class="form-label">メールアドレス（必須）</label><input class="form-input" type="email" name="email" autocomplete="email" required></div>
+                    <div class="form-group"><label class="form-label">電話番号（任意）</label><input class="form-input" type="tel" name="phone" autocomplete="tel"></div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">ご相談内容（必須）</label>
-                    <textarea class="form-textarea" name="message" placeholder="業務の困りごとや、どんな改善をしたいかをお気軽にご記入ください。" required></textarea>
+                    <textarea class="form-textarea" name="message" placeholder="現在の業務のお悩み、AI研修、業務改善、システム開発について気になっていることをご記入ください。" required></textarea>
                 </div>
-                <button class="form-submit" type="submit"><i class="ph ph-paper-plane-right"></i>送信して無料で相談する</button>
+                <button class="form-submit" type="submit"><i class="ph ph-paper-plane-right"></i>送信して無料相談する</button>
             </form>
         </div>
     </div>
 </section>
-<!-- FOOTER -->
+
 <footer>
     <a href="#" class="footer-logo"><i class="ph-fill ph-code-block"></i>デジラク</a>
-    <div class="footer-copy">© 2026 デジラク All Rights Reserved.</div>
+    <div class="footer-copy">&copy; 2026 デジラク All Rights Reserved.</div>
 </footer>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('active'); }
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
         }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
         reveals.forEach(r => observer.observe(r));
