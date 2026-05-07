@@ -70,8 +70,8 @@
             cursor: pointer;
             transition: transform 0.2s, background 0.2s, border-color 0.2s;
         }
-        .btn-primary { background: var(--primary-light); color: #fff; box-shadow: 0 8px 20px rgba(37,99,235,0.18); }
-        .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), #f97316); color: #fff; box-shadow: 0 10px 22px rgba(220,38,38,0.22); }
+        .btn-primary:hover { background: linear-gradient(135deg, #b91c1c, #ea580c); transform: translateY(-1px); }
         .btn-phone { background: #fff; color: var(--primary); border: 1px solid var(--border); }
         .btn-phone:hover { border-color: var(--primary-light); transform: translateY(-1px); }
         .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 8px 18px rgba(220,38,38,0.18); }
@@ -108,7 +108,8 @@
             background-size: 24px 24px;
         }
         .hero-inner { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 42px; align-items: center; }
-        .hero-label { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--primary-light); border: 1px solid var(--border-light); border-radius: 4px; padding: 6px 12px; font-size: 13px; font-weight: 900; margin-bottom: 18px; box-shadow: var(--shadow-subtle); }
+        .hero-label { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--primary-light); border: 1px solid var(--border-light); border-radius: 4px; padding: 6px 12px; font-size: 13px; font-weight: 900; margin-bottom: 12px; box-shadow: var(--shadow-subtle); }
+        .hero-offer-label { display: inline-flex; align-items: center; gap: 8px; background: rgba(220,38,38,0.08); color: var(--accent); border: 1px solid rgba(220,38,38,0.18); border-radius: 4px; padding: 7px 12px; font-size: 13px; font-weight: 900; margin-bottom: 18px; }
         .hero-title { font-size: clamp(38px,5.6vw,66px); font-weight: 900; color: var(--primary); line-height: 1.18; margin-bottom: 24px; }
         .hero-title span { color: var(--primary-light); }
         .hero-sub { font-size: 16px; color: var(--text-main); line-height: 2; font-weight: 700; margin-bottom: 14px; }
@@ -119,23 +120,27 @@
         .hero-contact i { color: var(--primary-light); font-size: 17px; }
         .hero-visual {
             background: #fff;
-            border: 1px solid var(--border-light);
+            border: 1px solid rgba(15,23,42,0.08);
             border-radius: 8px;
-            box-shadow: var(--shadow-float);
+            box-shadow: 0 18px 32px rgba(15,23,42,0.12);
             overflow: hidden;
         }
         .visual-head { height: 42px; background: var(--primary); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; color: #cbd5e1; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 800; }
         .visual-dots { display: flex; gap: 6px; }
         .visual-dots span { display: block; width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
         .visual-body { padding: 24px; }
-        .profit-card { border: 1px solid var(--border-light); border-radius: 8px; padding: 20px; background: linear-gradient(135deg, #fff, #f8fafc); }
-        .profit-row { display: flex; justify-content: space-between; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border-light); font-size: 13px; }
-        .profit-row:last-child { border-bottom: none; }
+        .profit-card { border: 1px solid rgba(15,23,42,0.08); border-radius: 8px; padding: 20px; background: linear-gradient(135deg, #fff, #fff7ed 160%); }
+        .report-title { display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 15px; font-weight: 900; margin-bottom: 14px; }
+        .report-title i { color: var(--primary-light); font-size: 20px; }
+        .profit-row { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-bottom: 1px dashed var(--border-light); font-size: 13px; }
+        .profit-row:last-of-type { border-bottom: none; }
         .profit-label { color: var(--text-muted); font-weight: 700; }
         .profit-value { color: var(--primary); font-weight: 900; }
-        .profit-result { margin-top: 18px; padding: 16px; background: #eff6ff; border-left: 4px solid var(--primary-light); border-radius: 6px; }
+        .profit-result { margin-top: 18px; padding: 16px; background: #eff6ff; border-left: 4px solid var(--primary-light); border-radius: 6px; display: flex; align-items: end; justify-content: space-between; gap: 16px; }
         .profit-result .small { font-size: 12px; color: var(--text-muted); font-weight: 700; }
         .profit-result .large { font-family: 'Outfit', sans-serif; font-size: 34px; color: var(--primary-light); font-weight: 900; line-height: 1.1; }
+        .profit-alert { margin-top: 12px; display: flex; align-items: flex-start; gap: 8px; background: #fff7ed; border: 1px solid rgba(249,115,22,0.25); color: #9a3412; border-radius: 6px; padding: 10px 12px; font-size: 12px; font-weight: 800; line-height: 1.6; }
+        .profit-alert i { color: #f97316; font-size: 16px; margin-top: 1px; }
         .visual-caption { margin-top: 14px; color: var(--text-muted); font-size: 12px; line-height: 1.7; }
 
         .problems { background: #fff; }
@@ -170,21 +175,22 @@
         .benefit-item i { color: var(--primary-light); font-size: 22px; margin-top: 2px; }
         .benefit-item p { color: var(--text-main); font-size: 14px; font-weight: 800; line-height: 1.7; }
 
-        .offer { background: var(--bg-light); border-top: 1px solid var(--border-light); }
-        .offer-box { background: #fff; border: 1px solid var(--border-light); border-radius: 10px; padding: 34px; box-shadow: var(--shadow-float); position: relative; overflow: hidden; }
+        .offer { background: linear-gradient(135deg, #fff7ed, var(--bg-light)); border-top: 1px solid rgba(249,115,22,0.16); border-bottom: 1px solid rgba(249,115,22,0.14); }
+        .offer-box { background: #fff; border: 1px solid rgba(249,115,22,0.28); border-radius: 10px; padding: 34px; box-shadow: 0 22px 36px rgba(15,23,42,0.12); position: relative; overflow: hidden; }
+        .offer-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--accent), #f97316, var(--primary-light)); }
         .offer-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(220,38,38,0.1); color: var(--accent); border-radius: 4px; padding: 6px 12px; font-weight: 900; font-size: 13px; margin-bottom: 14px; }
         .offer-box h2 { color: var(--primary); font-size: clamp(26px,3.6vw,40px); font-weight: 900; line-height: 1.35; margin-bottom: 16px; }
         .offer-box p { color: var(--text-muted); font-size: 14px; line-height: 1.9; margin-bottom: 14px; }
         .offer-notes { display: grid; gap: 6px; margin-top: 18px; color: #64748b; font-size: 12px; line-height: 1.7; }
 
         .pricing { background: #fff; }
-        .price-panel { max-width: 880px; margin: 0 auto; background: #fff; border: 1px solid var(--border-light); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); }
-        .price-head { background: var(--primary); color: #fff; padding: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
+        .price-panel { max-width: 880px; margin: 0 auto; background: #fff; border: 1px solid rgba(37,99,235,0.16); border-radius: 10px; overflow: hidden; box-shadow: 0 16px 30px rgba(15,23,42,0.1); }
+        .price-head { background: linear-gradient(135deg, var(--primary), #172554); color: #fff; padding: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
         .price-title { font-size: 18px; font-weight: 900; }
         .price-main { display: flex; flex-wrap: wrap; gap: 18px; }
-        .price-block { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 6px; padding: 14px 18px; min-width: 190px; }
+        .price-block { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; padding: 16px 20px; min-width: 210px; }
         .price-label { color: #cbd5e1; font-size: 12px; font-weight: 800; }
-        .price-value { font-family: 'Outfit', 'Noto Sans JP', sans-serif; font-size: 30px; font-weight: 900; line-height: 1.1; }
+        .price-value { font-family: 'Outfit', 'Noto Sans JP', sans-serif; font-size: clamp(34px,4.8vw,46px); font-weight: 900; line-height: 1.05; color: #fff; }
         .price-body { padding: 26px; }
         .price-note { color: var(--text-muted); font-size: 13px; line-height: 1.8; margin-bottom: 24px; }
         .price-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -269,6 +275,7 @@
     <div class="container hero-inner">
         <div>
             <div class="hero-label"><i class="ph-bold ph-factory"></i>加工業・製造業・設備工事業向け</div>
+            <div class="hero-offer-label"><i class="ph-bold ph-gift"></i>初回導入企業様限定｜30日間無料導入も可能</div>
             <h1 class="hero-title">売上はあるのに、<br><span>なぜお金が残らないのか？</span></h1>
             <p class="hero-sub">
                 直近1〜3案件の見積・材料費・外注費・作業時間を確認し、<br>
@@ -294,13 +301,15 @@
             </div>
             <div class="visual-body">
                 <div class="profit-card">
+                    <div class="report-title"><i class="ph-bold ph-clipboard-text"></i>案件別利益チェック</div>
                     <div class="profit-row"><span class="profit-label">売上</span><span class="profit-value">1,200,000円</span></div>
                     <div class="profit-row"><span class="profit-label">材料費・外注費</span><span class="profit-value">760,000円</span></div>
-                    <div class="profit-row"><span class="profit-label">作業時間</span><span class="profit-value">86時間</span></div>
+                    <div class="profit-row"><span class="profit-label">作業時間・工数</span><span class="profit-value">86時間</span></div>
                     <div class="profit-result">
-                        <div class="small">案件別の粗利・利益率を確認</div>
+                        <div class="small">概算利益率</div>
                         <div class="large">18.4%</div>
                     </div>
+                    <div class="profit-alert"><i class="ph-bold ph-warning-circle"></i>注意：利益率が低い可能性があります</div>
                 </div>
                 <div class="visual-caption">見積、材料費、外注費、作業時間を案件ごとに整理し、数字で確認しやすくします。</div>
             </div>
@@ -311,7 +320,7 @@
 <section class="problems section-padding">
     <div class="container">
         <div class="section-header">
-            <div class="section-tag">PROBLEMS</div>
+            <div class="section-tag">こんな状態なら要注意</div>
             <h2 class="section-heading">こんなお悩みありませんか？</h2>
         </div>
         <div class="problem-grid">
@@ -328,7 +337,7 @@
 <section class="check section-padding" id="check">
     <div class="container check-inner">
         <div class="check-copy">
-            <div class="section-tag">FREE CHECK</div>
+            <div class="section-tag">まずは直近1〜3案件を無料確認</div>
             <h2 class="section-heading">直近1〜3案件を無料で確認します</h2>
             <p>
                 まずは直近1〜3案件だけで大丈夫です。見積金額、材料費、外注費、作業時間を確認し、案件ごとの利益が見える状態になっているかを一緒に確認します。
@@ -347,7 +356,7 @@
 <section class="system section-padding" id="system">
     <div class="container">
         <div class="section-header">
-            <div class="section-tag">SYSTEM</div>
+            <div class="section-tag">利益が見える状態をシステムで作ります</div>
             <h2 class="section-heading">案件別利益見える化システムを導入します</h2>
             <p class="section-lead">
                 売上・材料費・外注費・作業時間を入力することで、案件ごとの粗利・利益率・赤字案件を確認できるシステムを導入します。フルオーダー開発ではなく、利益管理に必要な基本機能を備えた半パッケージ型のため、小規模な会社でも導入しやすい形で始められます。
@@ -368,8 +377,8 @@
 <section class="benefits section-padding">
     <div class="container">
         <div class="section-header">
-            <div class="section-tag">BENEFITS</div>
-            <h2 class="section-heading">導入すると分かること</h2>
+            <div class="section-tag">導入すると確認しやすくなること</div>
+            <h2 class="section-heading">導入すると確認しやすくなること</h2>
         </div>
         <div class="benefit-grid">
             <div class="benefit-item"><i class="ph-bold ph-chart-line-up"></i><p>案件ごとの粗利、利益率が見える</p></div>
@@ -406,7 +415,7 @@
 <section class="pricing section-padding" id="pricing">
     <div class="container">
         <div class="section-header">
-            <div class="section-tag">PRICE</div>
+            <div class="section-tag">料金</div>
             <h2 class="section-heading">料金</h2>
         </div>
         <div class="price-panel">
@@ -449,7 +458,7 @@
 <section class="faq section-padding">
     <div class="container">
         <div class="section-header">
-            <div class="section-tag">FAQ</div>
+            <div class="section-tag">よくある質問</div>
             <h2 class="section-heading">よくある質問</h2>
         </div>
         <div class="faq-list">
