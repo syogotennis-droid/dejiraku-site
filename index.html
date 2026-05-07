@@ -349,6 +349,8 @@
         .contact-row i { font-size: 18px; color: #93c5fd; }
         .contact-key { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; color: #94a3b8; }
         .contact-val { font-size: 14px; font-weight: 700; color: #fff; }
+        .contact-address { width: 100%; justify-content: center; color: rgba(255,255,255,0.78); font-size: 12px; line-height: 1.7; }
+        .contact-address .contact-val { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.82); }
         .contact-inner { max-width: 640px; margin: 0 auto; background-color: #fff; padding: 40px; border-radius: 8px; box-shadow: var(--shadow-float); }
         .contact-form { display: flex; flex-direction: column; gap: 16px; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -364,6 +366,8 @@
         footer { background-color: #020617; padding: 24px 5vw; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
         .footer-logo { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px; text-decoration: none; }
         .footer-logo i { color: var(--primary-light); font-size: 18px; }
+        .footer-info { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+        .footer-address { font-size: 11px; color: #64748b; line-height: 1.6; }
         .footer-copy { font-size: 11px; color: #475569; }
 
         @media(max-width: 900px) {
@@ -386,6 +390,7 @@
             .form-row { grid-template-columns: 1fr; }
             .contact-inner { padding: 28px 20px; }
             footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+            .footer-info { align-items: flex-start; text-align: left; }
         }
     </style>
 </head>
@@ -737,6 +742,7 @@
             <div class="contact-info">
                 <div class="contact-row"><i class="ph-fill ph-phone-call"></i><span class="contact-key">TEL</span><span class="contact-val">050-7114-7806</span></div>
                 <div class="contact-row"><i class="ph-fill ph-envelope-simple"></i><span class="contact-key">MAIL</span><span class="contact-val">info@dejiraku.com</span></div>
+                <div class="contact-row contact-address"><i class="ph-fill ph-map-pin"></i><span class="contact-key">ADDRESS</span><span class="contact-val">〒450-0002 愛知県名古屋市中村区名駅4丁目24番5号 第2森ビル401</span></div>
             </div>
         </div>
         <div class="contact-inner reveal delay-1">
@@ -771,7 +777,10 @@
 
 <footer>
     <a href="#" class="footer-logo"><i class="ph-fill ph-code-block"></i>デジラク</a>
-    <div class="footer-copy">&copy; 2026 デジラク All Rights Reserved.</div>
+    <div class="footer-info">
+        <div class="footer-address">事業所所在地：〒450-0002 愛知県名古屋市中村区名駅4丁目24番5号 第2森ビル401</div>
+        <div class="footer-copy">&copy; 2026 デジラク All Rights Reserved.</div>
+    </div>
 </footer>
 
 <script>
